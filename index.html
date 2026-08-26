@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IBC vs. Tasa BCV — variación mensual</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<!-- AdSense: descomenta esta linea con tu Publisher ID real una vez que tu     cuenta este aprobada (AdSense > Cuenta > Informacion de la cuenta).     No la actives antes de la aprobacion -- pedir anuncios con un ID falso     puede afectar la revision de la cuenta. -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 <style>
     .ibc-root {
       --bg: #0e1420;
@@ -131,6 +133,17 @@
       border-top: 1px solid var(--line);
     }
 
+    .ibc-ad-slot { margin: 20px 0; text-align: center; }
+    .ibc-ad-label {
+      display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .ibc-ad-placeholder {
+      border: 1px dashed var(--line); border-radius: 8px; background: var(--surface);
+      color: var(--muted); font-size: 12px; padding: 24px 12px; min-height: 90px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
     @media (max-width: 480px) {
       .ibc-hero h1 { font-size: 21px; }
       .ibc-ticker { font-size: 12px; }
@@ -183,6 +196,20 @@
       <span><i style="background: var(--bcv);"></i>Tasa BCV (Bs/USD)</span>
     </div>
 
+    <div class="ibc-ad-slot">
+      <span class="ibc-ad-label">Publicidad</span>
+      <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div>
+      <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
+    </div>
+
     <div class="ibc-footer-bar">
       <div>
         <span id="lastUpdated">—</span><br/>
@@ -204,6 +231,20 @@
         </thead>
         <tbody id="dataTable"></tbody>
       </table>
+    </div>
+
+    <div class="ibc-ad-slot">
+      <span class="ibc-ad-label">Publicidad</span>
+      <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div>
+      <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="YYYYYYYYYY"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      -->
     </div>
   </div>
 
