@@ -73,6 +73,17 @@
     .ibc-hero h1 .num-ibc { color: var(--ibc); }
     .ibc-hero h1 .num-bcv { color: var(--bcv); }
     .ibc-hero p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .ibc-prima-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+    .ibc-prima-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .ibc-prima-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); margin: 0 0 6px;
+    }
+    .ibc-prima-value { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin: 0; }
+    .ibc-prima-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
 
     .ibc-offline {
       display: none; font-size: 12px; color: var(--muted); background: var(--surface);
@@ -136,6 +147,7 @@
       .ibc-ticker { font-size: 12px; }
       .ibc-ticker .tk-item { padding: 8px 10px; }
       .ibc-body { padding: 18px 16px 4px; }
+      .ibc-prima-value { font-size: 18px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -159,6 +171,17 @@
     <div class="ibc-hero">
       <h1 id="heroHeadline">Cargando…</h1>
       <p id="heroSub"></p>
+    </div>
+    <div class="ibc-prima-grid">
+      <div class="ibc-prima-card">
+        <p class="ibc-prima-label">Prima real mensual</p>
+        <p class="ibc-prima-value" id="primaMensual">-</p>
+      </div>
+      <div class="ibc-prima-card">
+        <p class="ibc-prima-label">Prima real anual (TTM)</p>
+        <p class="ibc-prima-value" id="primaAnual">-</p>
+        <p class="ibc-prima-note" id="primaAnualNota" style="display:none;"></p>
+      </div>
     </div>
 
     <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad">
@@ -425,6 +448,11 @@
     requestAnimationFrame(tick);
   }
 
+  function calcularPrimaReal(ibcPct, bcvPct) {
+    if (ibcPct === null || ibcPct === undefined || bcvPct === null || bcvPct === undefined) return null;
+    return (((1 + ibcPct / 100) / (1 + bcvPct / 100)) - 1) * 100;
+  }
+
   function renderHero(last) {
     const headline = $('heroHeadline');
     const sub = $('heroSub');
@@ -436,17 +464,47 @@
     headline.innerHTML = `IBC <span class="num-ibc" id="heroIbcNum">0%</span> — BCV <span class="num-bcv" id="heroBcvNum">0%</span> este mes`;
     animateNumber($('heroIbcNum'), last.ibcPct);
     animateNumber($('heroBcvNum'), last.bcvPct);
-    const diff = last.ibcPct - last.bcvPct;
-    sub.textContent = diff >= 0
-      ? `El IBC superó la devaluación del bolívar por ${diff.toFixed(2)} puntos porcentuales este mes.`
-      : `La devaluación del bolívar superó al IBC por ${Math.abs(diff).toFixed(2)} puntos porcentuales este mes.`;
+    const primaReal = calcularPrimaReal(last.ibcPct, last.bcvPct);
+    sub.textContent = primaReal >= 0
+      ? `El IBC superó la devaluación del bolívar por una prima real de ${primaReal.toFixed(2)}% este mes.`
+      : `La devaluación del bolívar superó al IBC por una prima real de ${Math.abs(primaReal).toFixed(2)}% este mes.`;
+  }
+
+  function pintarPrima(id, valor) {
+    const el = $(id);
+    if (valor === null || valor === undefined) {
+      el.textContent = '—';
+      el.style.color = 'var(--muted)';
+      return;
+    }
+    el.textContent = fmtPct(valor);
+    el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)';
+  }
+
+  function renderPrimaCards(ultimoMensual) {
+    const primaMensual = calcularPrimaReal(ultimoMensual?.ibcPct, ultimoMensual?.bcvPct);
+    pintarPrima('primaMensual', primaMensual);
+    const filasTTM = withVariationGeneric(aggregateByPeriod(estado.cierresDiarios, 'ttm'), PERIODOS.ttm.esActual, 12);
+    const ultimoTTM = filasTTM[filasTTM.length - 1];
+    const primaAnual = ultimoTTM ? calcularPrimaReal(ultimoTTM.ibcPct, ultimoTTM.bcvPct) : null;
+    pintarPrima('primaAnual', primaAnual);
+    const nota = $('primaAnualNota');
+    if (primaAnual === null && ultimoTTM) {
+      const disponibleDesde = PERIODOS.ttm.periodLabel(addMonthsToKey(filasTTM[0].periodo, 12));
+      nota.textContent = `Disponible desde ${disponibleDesde}`;
+      nota.style.display = 'block';
+    } else {
+      nota.style.display = 'none';
+    }
   }
 
   const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo' };
 
   function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
-    renderHero(monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1]);
+    const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
+    renderHero(ultimoMensual);
+    renderPrimaCards(ultimoMensual);
   }
 
   function renderChartAndTable(granularidad) {
