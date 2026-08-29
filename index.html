@@ -205,7 +205,7 @@
         <p class="ibc-prima-value" id="primaMensual">-</p>
       </div>
       <div class="ibc-prima-card">
-        <p class="ibc-prima-label">Prima real anual (TTM)</p>
+        <p class="ibc-prima-label">Prima real acumulada</p>
         <p class="ibc-prima-value" id="primaAnual">-</p>
         <p class="ibc-prima-note" id="primaAnualNota" style="display:none;"></p>
       </div>
@@ -214,7 +214,6 @@
     <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad">
       <button class="ibc-period-btn" data-periodo="semanal">Semanal</button>
       <button class="ibc-period-btn active" data-periodo="mensual">Mensual</button>
-      <button class="ibc-period-btn" data-periodo="ttm">TTM</button>
     </div>
 
     <div class="ibc-range-row" role="group" aria-label="Seleccionar rango de fechas">
@@ -363,16 +362,6 @@
     },
     mensual: {
       cap: Infinity, columnLabel: 'Mes', varLabel: 'mensual', lookback: 1,
-      bucketKey: (fecha) => fecha.slice(0, 7),
-      periodLabel: (key) => monthLabel(key),
-      esActual: (key) => esMesActual(key),
-    },
-    ttm: {
-      // TTM (trailing twelve months): mismos cierres mensuales que "mensual",
-      // pero la variación se calcula contra el mismo mes de hace 12 meses,
-      // no contra el mes inmediato anterior. Pensado para leer la tendencia
-      // de largo plazo sin el ruido mes a mes.
-      cap: Infinity, columnLabel: 'Mes', varLabel: 'interanual (TTM)', lookback: 12,
       bucketKey: (fecha) => fecha.slice(0, 7),
       periodLabel: (key) => monthLabel(key),
       esActual: (key) => esMesActual(key),
@@ -536,17 +525,24 @@
     el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)';
   }
 
-  function renderPrimaCards(ultimoMensual) {
+  function calcularPrimaAcumulada(monthlyRows) {
+    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
+    if (conDatos.length < 2) return null;
+    const primero = conDatos[0];
+    const ultimo = conDatos[conDatos.length - 1];
+    const crecIbc = ultimo.ibc / primero.ibc;
+    const crecBcv = ultimo.bcv / primero.bcv;
+    return { valor: (crecIbc / crecBcv - 1) * 100, desde: primero.mes };
+  }
+
+  function renderPrimaCards(ultimoMensual, monthlyRows) {
     const primaMensual = calcularPrimaReal(ultimoMensual?.ibcPct, ultimoMensual?.bcvPct);
     pintarPrima('primaMensual', primaMensual);
-    const filasTTM = withVariationGeneric(aggregateByPeriod(estado.cierresDiarios, 'ttm'), PERIODOS.ttm.esActual, 12);
-    const ultimoTTM = filasTTM[filasTTM.length - 1];
-    const primaAnual = ultimoTTM ? calcularPrimaReal(ultimoTTM.ibcPct, ultimoTTM.bcvPct) : null;
-    pintarPrima('primaAnual', primaAnual);
+    const acumulada = calcularPrimaAcumulada(monthlyRows);
+    pintarPrima('primaAnual', acumulada ? acumulada.valor : null);
     const nota = $('primaAnualNota');
-    if (primaAnual === null && ultimoTTM) {
-      const disponibleDesde = PERIODOS.ttm.periodLabel(addMonthsToKey(filasTTM[0].periodo, 12));
-      nota.textContent = `Disponible desde ${disponibleDesde}`;
+    if (acumulada) {
+      nota.textContent = `Desde ${monthLabel(acumulada.desde)}`;
       nota.style.display = 'block';
     } else {
       nota.style.display = 'none';
@@ -559,7 +555,7 @@
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
     const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
     renderHero(ultimoMensual);
-    renderPrimaCards(ultimoMensual);
+    renderPrimaCards(ultimoMensual, monthlyRowsWithVariation);
   }
 
   function renderChartAndTable(granularidad) {
