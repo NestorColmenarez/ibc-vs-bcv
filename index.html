@@ -218,13 +218,7 @@
       </div>
     </div>
 
-    <div class="ibc-hist-section">
-      <p class="ibc-eyebrow" style="margin-top: 4px;">📊 Evolución histórica de la prima real</p>
-      <p class="ibc-hist-desc">¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Prima real mensual" de arriba — es informativo, no una señal de compra o venta.</p>
-      <div class="ibc-chart-wrap" style="height: 220px;">
-        <canvas id="primaHistChart" role="img" aria-label="Evolución histórica de la prima real mensual">Gráfico de la evolución mensual de la prima real</canvas>
-      </div>
-    </div>
+    <p class="ibc-eyebrow" style="margin-top: 4px;">📈 IBC vs BCV — Variación por periodo</p>
 
     <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad">
       <button class="ibc-period-btn" data-periodo="semanal">Semanal</button>
@@ -251,6 +245,22 @@
     <div class="ibc-legend">
       <span><i style="background: var(--ibc);"></i>IBC (índice bursátil)</span>
       <span><i style="background: var(--bcv);"></i>Tasa BCV (Bs/USD)</span>
+    </div>
+
+    <div class="ibc-hist-section">
+      <p class="ibc-eyebrow" style="margin-top: 4px;">📈 Índice de valor real acumulado</p>
+      <p class="ibc-hist-desc">Si tu inversión en el IBC hubiera partido de una base de 100 en el primer mes de nuestros datos, ¿cuánto valdría hoy, ya descontando la devaluación del bolívar? Por encima de 100 significa que el mercado protegió y ganó valor real; por debajo, que lo perdió.</p>
+      <div class="ibc-chart-wrap" style="height: 220px;">
+        <canvas id="indiceChart" role="img" aria-label="Índice de valor real acumulado en el tiempo">Gráfico del índice de valor real acumulado</canvas>
+      </div>
+    </div>
+
+    <div class="ibc-hist-section">
+      <p class="ibc-eyebrow" style="margin-top: 4px;">📊 Evolución histórica de la prima real mensual</p>
+      <p class="ibc-hist-desc">¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Prima real mensual" de arriba — es informativo, no una señal de compra o venta.</p>
+      <div class="ibc-chart-wrap" style="height: 220px;">
+        <canvas id="primaHistChart" role="img" aria-label="Evolución histórica de la prima real mensual">Gráfico de la evolución mensual de la prima real</canvas>
+      </div>
     </div>
 
     <div class="ibc-ad-slot">
@@ -338,6 +348,7 @@
 
   let chart = null;
   let primaHistChart = null;
+  let indiceChart = null;
 
   const $ = (id) => document.getElementById(id);
 
@@ -665,12 +676,89 @@
     });
   }
 
+  function construirIndiceValorReal(monthlyRows) {
+    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
+    if (conDatos.length === 0) return [];
+    const base = conDatos[0];
+    return conDatos.map((r) => ({
+      mes: r.mes,
+      etiqueta: monthLabel(r.mes) + (r.esParcial ? '*' : ''),
+      indice: (r.ibc / base.ibc) / (r.bcv / base.bcv) * 100
+    }));
+  }
+
+  function renderIndiceValorReal(monthlyRows) {
+    const serie = construirIndiceValorReal(monthlyRows);
+    if (serie.length === 0 || typeof Chart === 'undefined') return;
+    const labels = serie.map((s) => s.etiqueta);
+    const valores = serie.map((s) => Number(s.indice.toFixed(2)));
+    const styles = getComputedStyle(document.querySelector('.ibc-root'));
+    const cPositive = styles.getPropertyValue('--positive').trim();
+    const cMuted = styles.getPropertyValue('--muted').trim();
+    const cLine = styles.getPropertyValue('--line').trim();
+    const cPaper = styles.getPropertyValue('--paper').trim();
+    if (indiceChart) indiceChart.destroy();
+    indiceChart = new Chart($('indiceChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Índice de valor real',
+            data: valores,
+            borderColor: cPositive,
+            backgroundColor: cPositive + '15',
+            pointRadius: labels.length > 40 ? 0 : 3,
+            pointBackgroundColor: cPositive,
+            pointBorderColor: '#0e1420',
+            pointBorderWidth: 2,
+            tension: 0.15,
+            fill: true,
+            spanGaps: true
+          },
+          {
+            label: 'Base (100)',
+            data: valores.map(() => 100),
+            borderColor: cMuted,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            borderWidth: 1,
+            fill: false
+          },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: prefersReducedMotion() ? false : undefined,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a2333',
+            borderColor: cLine,
+            borderWidth: 1,
+            titleColor: cPaper,
+            bodyColor: cPaper,
+            callbacks: {
+              label: (ctx) => ctx.datasetIndex === 0 ? 'Índice: ' + ctx.parsed.y.toFixed(2) : null
+            }
+          }
+        },
+        scales: {
+          y: { grid: { color: cLine }, ticks: { color: cMuted } },
+          x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }
+        }
+      }
+    });
+  }
+
   function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
     estado.monthlyRows = monthlyRowsWithVariation;
     const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
     renderHero(ultimoMensual);
     renderPrimaCards(ultimoMensual, monthlyRowsWithVariation);
+    renderIndiceValorReal(monthlyRowsWithVariation);
     renderPrimaHistorico(monthlyRowsWithVariation);
   }
 
