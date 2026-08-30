@@ -102,6 +102,11 @@
     .ibc-prima-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
     .ibc-hist-section { margin-bottom: 24px; }
     .ibc-hist-desc { font-size: 13px; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
+    .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; }
+    .ibc-horizon-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; }
+    .ibc-horizon-btn:hover { background: var(--surface-2); color: var(--paper); }
+    .ibc-horizon-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
+    .ibc-horizon-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
 
     .ibc-offline {
       display: none; font-size: 12px; color: var(--muted); background: var(--surface);
@@ -202,6 +207,12 @@
       </div>
       <div class="ibc-prima-card">
         <p class="ibc-prima-label">Prima real acumulada</p>
+        <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte de la prima acumulada">
+          <button class="ibc-horizon-btn" data-horizonte="12">12M</button>
+          <button class="ibc-horizon-btn" data-horizonte="24">24M</button>
+          <button class="ibc-horizon-btn" data-horizonte="36">36M</button>
+          <button class="ibc-horizon-btn active" data-horizonte="todo">Todo</button>
+        </div>
         <p class="ibc-prima-value" id="primaAnual">-</p>
         <p class="ibc-prima-note" id="primaAnualNota" style="display:none;"></p>
       </div>
@@ -536,31 +547,53 @@
     el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)';
   }
 
-  function calcularPrimaAcumulada(monthlyRows) {
+  function calcularPrimaAcumuladaHorizonte(monthlyRows, horizonteMeses) {
     const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
     if (conDatos.length < 2) return null;
-    const primero = conDatos[0];
     const ultimo = conDatos[conDatos.length - 1];
-    const crecIbc = ultimo.ibc / primero.ibc;
-    const crecBcv = ultimo.bcv / primero.bcv;
-    return { valor: (crecIbc / crecBcv - 1) * 100, desde: primero.mes };
+    let inicio;
+    if (horizonteMeses === null) {
+      inicio = conDatos[0];
+    } else {
+      const claveObjetivo = addMonthsToKey(ultimo.mes, -horizonteMeses);
+      inicio = conDatos.find((r) => r.mes === claveObjetivo);
+      if (!inicio) return null;
+    }
+    const crecIbc = ultimo.ibc / inicio.ibc;
+    const crecBcv = ultimo.bcv / inicio.bcv;
+    return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: ultimo.mes, esParcial: ultimo.esParcial };
+  }
+
+  function renderPrimaAcumulada(monthlyRows, horizonte) {
+    const horizonteMeses = horizonte === 'todo' ? null : Number(horizonte);
+    const resultado = calcularPrimaAcumuladaHorizonte(monthlyRows, horizonteMeses);
+    pintarPrima('primaAnual', resultado ? resultado.valor : null);
+    const nota = $('primaAnualNota');
+    if (resultado) {
+      const desde = monthLabel(resultado.desde);
+      const hasta = monthLabel(resultado.hasta) + (resultado.esParcial ? '*' : '');
+      nota.textContent = horizonteMeses === null
+        ? `Desde ${desde}`
+        : `Últimos ${horizonteMeses} meses (${desde} a ${hasta})`;
+      nota.style.display = 'block';
+    } else {
+      const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
+      const primerMes = conDatos[0]?.mes;
+      const disponibleDesde = primerMes ? monthLabel(addMonthsToKey(primerMes, horizonteMeses)) : null;
+      nota.textContent = disponibleDesde
+        ? `${horizonteMeses} meses requiere más historia — disponible a partir de ${disponibleDesde}`
+        : 'Historia insuficiente';
+      nota.style.display = 'block';
+    }
   }
 
   function renderPrimaCards(ultimoMensual, monthlyRows) {
     const primaMensual = calcularPrimaReal(ultimoMensual?.ibcPct, ultimoMensual?.bcvPct);
     pintarPrima('primaMensual', primaMensual);
-    const acumulada = calcularPrimaAcumulada(monthlyRows);
-    pintarPrima('primaAnual', acumulada ? acumulada.valor : null);
-    const nota = $('primaAnualNota');
-    if (acumulada) {
-      nota.textContent = `Desde ${monthLabel(acumulada.desde)}`;
-      nota.style.display = 'block';
-    } else {
-      nota.style.display = 'none';
-    }
+    renderPrimaAcumulada(monthlyRows, estado.horizonte);
   }
 
-  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo' };
+  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: 'todo', monthlyRows: null };
 
   function construirHistoricoPrimaReal(monthlyRows) {
     const historico = [];
@@ -634,6 +667,7 @@
 
   function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
+    estado.monthlyRows = monthlyRowsWithVariation;
     const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
     renderHero(ultimoMensual);
     renderPrimaCards(ultimoMensual, monthlyRowsWithVariation);
@@ -742,6 +776,14 @@
       estado.rango = btn.dataset.rango;
       document.querySelectorAll('.ibc-range-btn').forEach((b) => b.classList.toggle('active', b === btn));
       renderChartAndTable(estado.granularidad);
+    });
+  });
+
+  document.querySelectorAll('.ibc-horizon-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      estado.horizonte = btn.dataset.horizonte;
+      document.querySelectorAll('.ibc-horizon-btn').forEach((b) => b.classList.toggle('active', b === btn));
+      if (estado.monthlyRows) renderPrimaAcumulada(estado.monthlyRows, estado.horizonte);
     });
   });
 
