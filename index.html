@@ -208,10 +208,10 @@
       <div class="ibc-prima-card">
         <p class="ibc-prima-label">Prima real acumulada</p>
         <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte de la prima acumulada">
-          <button class="ibc-horizon-btn" data-horizonte="12">12M</button>
-          <button class="ibc-horizon-btn" data-horizonte="24">24M</button>
-          <button class="ibc-horizon-btn" data-horizonte="36">36M</button>
-          <button class="ibc-horizon-btn active" data-horizonte="todo">Todo</button>
+          <button class="ibc-horizon-btn active" data-horizonte="12">12M</button>
+          <button class="ibc-horizon-btn" data-horizonte="9">9M</button>
+          <button class="ibc-horizon-btn" data-horizonte="6">6M</button>
+          <button class="ibc-horizon-btn" data-horizonte="3">3M</button>
         </div>
         <p class="ibc-prima-value" id="primaAnual">-</p>
         <p class="ibc-prima-note" id="primaAnualNota" style="display:none;"></p>
@@ -604,7 +604,7 @@
     renderPrimaAcumulada(monthlyRows, estado.horizonte);
   }
 
-  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: 'todo', monthlyRows: null };
+  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', monthlyRows: null };
 
   function construirHistoricoPrimaReal(monthlyRows) {
     const historico = [];
