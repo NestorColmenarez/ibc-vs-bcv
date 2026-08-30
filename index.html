@@ -102,6 +102,11 @@
     .ibc-prima-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
     .ibc-hist-section { margin-bottom: 24px; }
     .ibc-hist-desc { font-size: 13px; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
+    .ibc-carousel-tabs { display: flex; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .ibc-carousel-tab { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: var(--font-display); font-size: 17px; font-weight: 500; padding: 0 0 10px; margin: 0; cursor: pointer; }
+    .ibc-carousel-tab:hover { color: var(--paper); }
+    .ibc-carousel-tab.active { color: var(--paper); border-bottom-color: var(--positive); }
+    .ibc-carousel-tab:focus-visible { outline: 2px solid var(--positive); outline-offset: 2px; }
     .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; }
     .ibc-horizon-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; }
     .ibc-horizon-btn:hover { background: var(--surface-2); color: var(--paper); }
@@ -138,7 +143,7 @@
     .ibc-range-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
     .ibc-range-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
 
-    .ibc-table-wrap { max-height: 380px; overflow-y: auto; border-radius: 8px; }
+    .ibc-table-wrap { max-height: 380px; overflow-y: auto; overflow-x: auto; border-radius: 8px; }
 
     .ibc-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 0 24px; font-size: 12px; color: var(--muted); }
     .ibc-legend span { display: flex; align-items: center; gap: 6px; }
@@ -248,18 +253,13 @@
     </div>
 
     <div class="ibc-hist-section">
-      <p class="ibc-eyebrow" style="margin-top: 4px;">📈 Índice de valor real acumulado</p>
-      <p class="ibc-hist-desc">Si tu inversión en el IBC hubiera partido de una base de 100 en el primer mes de nuestros datos, ¿cuánto valdría hoy, ya descontando la devaluación del bolívar? Por encima de 100 significa que el mercado protegió y ganó valor real; por debajo, que lo perdió.</p>
-      <div class="ibc-chart-wrap" style="height: 220px;">
-        <canvas id="indiceChart" role="img" aria-label="Índice de valor real acumulado en el tiempo">Gráfico del índice de valor real acumulado</canvas>
+      <div class="ibc-carousel-tabs" role="tablist" aria-label="Seleccionar gráfico">
+        <button class="ibc-carousel-tab active" data-tab="indice" role="tab" aria-selected="true">Índice de beneficio acumulado</button>
+        <button class="ibc-carousel-tab" data-tab="beneficio" role="tab" aria-selected="false">Beneficio real</button>
       </div>
-    </div>
-
-    <div class="ibc-hist-section">
-      <p class="ibc-eyebrow" style="margin-top: 4px;">📊 Evolución histórica de la prima real mensual</p>
-      <p class="ibc-hist-desc">¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Prima real mensual" de arriba — es informativo, no una señal de compra o venta.</p>
+      <p class="ibc-hist-desc" id="carouselDesc"></p>
       <div class="ibc-chart-wrap" style="height: 220px;">
-        <canvas id="primaHistChart" role="img" aria-label="Evolución histórica de la prima real mensual">Gráfico de la evolución mensual de la prima real</canvas>
+        <canvas id="carouselChart" role="img" aria-label="Gráfico de beneficio real">Gráfico de beneficio real</canvas>
       </div>
     </div>
 
@@ -294,6 +294,7 @@
             <th class="num">Var. IBC</th>
             <th class="num">BCV</th>
             <th class="num">Var. BCV</th>
+            <th class="num">Beneficio Real</th>
           </tr>
         </thead>
         <tbody id="dataTable"></tbody>
@@ -347,8 +348,7 @@
   }
 
   let chart = null;
-  let primaHistChart = null;
-  let indiceChart = null;
+  let carouselChart = null;
 
   const $ = (id) => document.getElementById(id);
 
@@ -604,7 +604,7 @@
     renderPrimaAcumulada(monthlyRows, estado.horizonte);
   }
 
-  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', monthlyRows: null };
+  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', monthlyRows: null, carouselTab: 'indice' };
 
   function construirHistoricoPrimaReal(monthlyRows) {
     const historico = [];
@@ -636,13 +636,13 @@
     const cMuted = styles.getPropertyValue('--muted').trim();
     const cLine = styles.getPropertyValue('--line').trim();
     const cPaper = styles.getPropertyValue('--paper').trim();
-    if (primaHistChart) primaHistChart.destroy();
-    primaHistChart = new Chart($('primaHistChart'), {
+    if (carouselChart) carouselChart.destroy();
+    carouselChart = new Chart($('carouselChart'), {
       type: 'line',
       data: {
         labels,
         datasets: [{
-          label: 'Prima real mensual',
+          label: 'Beneficio real',
           data: valores,
           borderColor: cPositive,
           backgroundColor: cPositive + '15',
@@ -665,7 +665,7 @@
           tooltip: {
             backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1,
             titleColor: cPaper, bodyColor: cPaper,
-            callbacks: { label: (ctx) => 'Prima real: ' + fmtPct(ctx.parsed.y) }
+            callbacks: { label: (ctx) => 'Beneficio real: ' + fmtPct(ctx.parsed.y) }
           }
         },
         scales: {
@@ -697,8 +697,8 @@
     const cMuted = styles.getPropertyValue('--muted').trim();
     const cLine = styles.getPropertyValue('--line').trim();
     const cPaper = styles.getPropertyValue('--paper').trim();
-    if (indiceChart) indiceChart.destroy();
-    indiceChart = new Chart($('indiceChart'), {
+    if (carouselChart) carouselChart.destroy();
+    carouselChart = new Chart($('carouselChart'), {
       type: 'line',
       data: {
         labels,
@@ -752,14 +752,35 @@
     });
   }
 
+  const DESCRIPCIONES_CARRUSEL = {
+    indice: 'Si tu inversión en el IBC hubiera partido de una base de 100 en el primer mes de nuestros datos, ¿cuánto valdría hoy, ya descontando la devaluación del bolívar? Por encima de 100 significa que el mercado protegió y ganó valor real; por debajo, que lo perdió.',
+    beneficio: '¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Prima real mensual" de arriba — es informativo, no una señal de compra o venta.'
+  };
+
+  function renderCarouselTab(tab, monthlyRows) {
+    $('carouselDesc').textContent = DESCRIPCIONES_CARRUSEL[tab];
+    document.querySelectorAll('.ibc-carousel-tab').forEach((b) => {
+      const activo = b.dataset.tab === tab;
+      b.classList.toggle('active', activo);
+      b.setAttribute('aria-selected', activo ? 'true' : 'false');
+    });
+    if (tab === 'indice') renderIndiceValorReal(monthlyRows); else renderPrimaHistorico(monthlyRows);
+  }
+
+  document.querySelectorAll('.ibc-carousel-tab').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      estado.carouselTab = btn.dataset.tab;
+      if (estado.monthlyRows) renderCarouselTab(estado.carouselTab, estado.monthlyRows);
+    });
+  });
+
   function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
     estado.monthlyRows = monthlyRowsWithVariation;
     const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
     renderHero(ultimoMensual);
     renderPrimaCards(ultimoMensual, monthlyRowsWithVariation);
-    renderIndiceValorReal(monthlyRowsWithVariation);
-    renderPrimaHistorico(monthlyRowsWithVariation);
+    renderCarouselTab(estado.carouselTab, monthlyRowsWithVariation);
   }
 
   function renderChartAndTable(granularidad) {
@@ -786,15 +807,10 @@
     $('colPeriodo').textContent = cfg.columnLabel;
 
     const tbody = $('dataTable');
-    tbody.innerHTML = rows.map((r) => `
-      <tr>
-        <td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td>
-        <td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td>
-        <td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td>
-        <td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td>
-        <td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = rows.map((r) => {
+      const beneficioReal = calcularPrimaReal(r.ibcPct, r.bcvPct);
+      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td></tr>`;
+    }).join('');
 
     const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : ''));
     const ibcData = rows.map((r) => (r.ibcPct !== null ? Number(r.ibcPct.toFixed(2)) : null));
