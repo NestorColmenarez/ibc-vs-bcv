@@ -100,6 +100,8 @@
     }
     .ibc-prima-value { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin: 0; }
     .ibc-prima-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
+    .ibc-hist-section { margin-bottom: 24px; }
+    .ibc-hist-desc { font-size: 13px; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
 
     .ibc-offline {
       display: none; font-size: 12px; color: var(--muted); background: var(--surface);
@@ -211,6 +213,14 @@
       </div>
     </div>
 
+    <div class="ibc-hist-section">
+      <p class="ibc-eyebrow" style="margin-top: 4px;">📊 Evolución histórica de la prima real</p>
+      <p class="ibc-hist-desc">¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Prima real mensual" de arriba — es informativo, no una señal de compra o venta.</p>
+      <div class="ibc-chart-wrap" style="height: 220px;">
+        <canvas id="primaHistChart" role="img" aria-label="Evolución histórica de la prima real mensual">Gráfico de la evolución mensual de la prima real</canvas>
+      </div>
+    </div>
+
     <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad">
       <button class="ibc-period-btn" data-periodo="semanal">Semanal</button>
       <button class="ibc-period-btn active" data-periodo="mensual">Mensual</button>
@@ -316,6 +326,7 @@
   }
 
   let chart = null;
+  let primaHistChart = null;
 
   const $ = (id) => document.getElementById(id);
 
@@ -551,11 +562,82 @@
 
   const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo' };
 
+  function construirHistoricoPrimaReal(monthlyRows) {
+    const historico = [];
+    for (let i = 1; i < monthlyRows.length; i++) {
+      const actual = monthlyRows[i];
+      const anterior = monthlyRows[i - 1];
+      if (actual.ibcPct === null || actual.bcvPct === null) continue;
+      historico.push({
+        fecha: actual.mes,
+        etiqueta: monthLabel(actual.mes) + (actual.esParcial ? '*' : ''),
+        ibcInicio: anterior.ibc,
+        ibcFin: actual.ibc,
+        bcvInicio: anterior.bcv,
+        bcvFin: actual.bcv,
+        primaReal: calcularPrimaReal(actual.ibcPct, actual.bcvPct),
+      });
+    }
+    return historico;
+  }
+
+  function renderPrimaHistorico(monthlyRows) {
+    const historico = construirHistoricoPrimaReal(monthlyRows);
+    if (historico.length === 0 || typeof Chart === 'undefined') return;
+    const labels = historico.map((h) => h.etiqueta);
+    const valores = historico.map((h) => Number(h.primaReal.toFixed(2)));
+    const styles = getComputedStyle(document.querySelector('.ibc-root'));
+    const cPositive = styles.getPropertyValue('--positive').trim();
+    const cNegative = styles.getPropertyValue('--negative').trim();
+    const cMuted = styles.getPropertyValue('--muted').trim();
+    const cLine = styles.getPropertyValue('--line').trim();
+    const cPaper = styles.getPropertyValue('--paper').trim();
+    if (primaHistChart) primaHistChart.destroy();
+    primaHistChart = new Chart($('primaHistChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Prima real mensual',
+          data: valores,
+          borderColor: cPositive,
+          backgroundColor: cPositive + '15',
+          pointBackgroundColor: valores.map((v) => (v >= 0 ? cPositive : cNegative)),
+          pointBorderColor: '#0e1420',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          tension: 0.15,
+          fill: true,
+          spanGaps: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: prefersReducedMotion() ? false : undefined,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1,
+            titleColor: cPaper, bodyColor: cPaper,
+            callbacks: { label: (ctx) => 'Prima real: ' + fmtPct(ctx.parsed.y) }
+          }
+        },
+        scales: {
+          y: { grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } },
+          x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }
+        }
+      }
+    });
+  }
+
   function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
     if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
     const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
     renderHero(ultimoMensual);
     renderPrimaCards(ultimoMensual, monthlyRowsWithVariation);
+    renderPrimaHistorico(monthlyRowsWithVariation);
   }
 
   function renderChartAndTable(granularidad) {
