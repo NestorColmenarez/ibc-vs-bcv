@@ -193,14 +193,8 @@
   </div>
 
   <div class="ibc-body">
-    <p class="ibc-eyebrow">Bolsa de Valores de Caracas · Banco Central de Venezuela</p>
-
     <div class="ibc-offline" id="offlineBanner"></div>
 
-    <div class="ibc-hero">
-      <h1 id="heroHeadline">Cargando…</h1>
-      <p id="heroSub"></p>
-    </div>
     <div class="ibc-prima-grid">
       <div class="ibc-prima-card">
         <p class="ibc-prima-label">Prima real mensual</p>
@@ -232,6 +226,12 @@
       <button class="ibc-range-btn" data-rango="anio" id="rangoAnioBtn">Año actual</button>
     </div>
     <p class="ibc-period-note" id="periodEmptyMsg" style="display:none;"></p>
+
+    <p class="ibc-eyebrow" style="margin-top: 4px;">Bolsa de Valores de Caracas · Banco Central de Venezuela</p>
+    <div class="ibc-hero">
+      <h1 id="heroHeadline">Cargando…</h1>
+      <p id="heroSub"></p>
+    </div>
 
     <div class="ibc-chart-wrap">
       <canvas id="mainChart" role="img" aria-label="Variación del IBC comparada con la tasa BCV">Gráfico de variación IBC vs tasa BCV</canvas>
@@ -706,7 +706,11 @@
       options: {
         responsive: true, maintainAspectRatio: false,
         animation: prefersReducedMotion() ? false : undefined,
-        plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper } },
+        plugins: {
+          title: { display: true, text: 'IBC vs. Tasa BCV — variación por período', color: cPaper, font: { size: 14, weight: '600' }, padding: { bottom: 12 } },
+          legend: { display: false },
+          tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper }
+        },
         scales: {
           y: { title: { display: true, text: `Variación ${cfg.varLabel} (%)`, color: cMuted }, grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } },
           x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } },
