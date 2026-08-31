@@ -107,11 +107,11 @@
     .ibc-carousel-tab:hover { color: var(--paper); }
     .ibc-carousel-tab.active { color: var(--paper); border-bottom-color: var(--positive); }
     .ibc-carousel-tab:focus-visible { outline: 2px solid var(--positive); outline-offset: 2px; }
-    .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; }
-    .ibc-horizon-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; }
-    .ibc-horizon-btn:hover { background: var(--surface-2); color: var(--paper); }
-    .ibc-horizon-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
-    .ibc-horizon-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+    .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; align-items: center; }
+    .ibc-horizon-btn, .ibc-horizon-btn-tabla { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; }
+    .ibc-horizon-btn:hover, .ibc-horizon-btn-tabla:hover { background: var(--surface-2); color: var(--paper); }
+    .ibc-horizon-btn.active, .ibc-horizon-btn-tabla.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
+    .ibc-horizon-btn:focus-visible, .ibc-horizon-btn-tabla:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
 
     .ibc-offline {
       display: none; font-size: 12px; color: var(--muted); background: var(--surface);
@@ -211,7 +211,7 @@
         <p class="ibc-prima-value" id="primaMensual">-</p>
       </div>
       <div class="ibc-prima-card">
-        <p class="ibc-prima-label">Beneficio real acumulada</p>
+        <p class="ibc-prima-label">Beneficio real acumulado</p>
         <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte de la prima acumulada">
           <button class="ibc-horizon-btn active" data-horizonte="12">12M</button>
           <button class="ibc-horizon-btn" data-horizonte="9">9M</button>
@@ -285,6 +285,14 @@
       <button id="refreshBtn">↻ Actualizar</button>
     </div>
 
+    <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte para la tabla">
+      <span class="ibc-range-label">Beneficio acumulado por horizonte:</span>
+      <button class="ibc-horizon-btn-tabla active" data-horizonte-tabla="12">12M</button>
+      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="9">9M</button>
+      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="6">6M</button>
+      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="3">3M</button>
+    </div>
+
     <div class="ibc-table-wrap">
       <table class="ibc-table">
         <thead>
@@ -295,11 +303,8 @@
             <th class="num">BCV</th>
             <th class="num">Var. BCV</th>
             <th class="num">Beneficio Real</th>
-            <th class="num">Acum. Total</th>
-            <th class="num">Acum. 12M</th>
-            <th class="num">Acum. 9M</th>
-            <th class="num">Acum. 6M</th>
-            <th class="num">Acum. 3M</th>
+            <th class="num">Beneficio Real Acumulado</th>
+            <th class="num" id="colAcumHorizonte">Acum. 12M</th>
           </tr>
         </thead>
         <tbody id="dataTable"></tbody>
@@ -573,7 +578,7 @@
       inicio = conDatos.find((r) => r.mes === claveObjetivo);
       if (!inicio) return null;
     }
-    if (inicio === hasta) return null;
+    if (inicio === hasta) return { valor: 0, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial };
     const crecIbc = hasta.ibc / inicio.ibc;
     const crecBcv = hasta.bcv / inicio.bcv;
     return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial };
@@ -614,7 +619,7 @@
     renderPrimaAcumulada(monthlyRows, estado.horizonte);
   }
 
-  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', monthlyRows: null, carouselTab: 'indice' };
+  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', horizonteTabla: '12', monthlyRows: null, carouselTab: 'indice' };
 
   function construirHistoricoPrimaReal(monthlyRows) {
     const historico = [];
@@ -817,18 +822,19 @@
     $('colPeriodo').textContent = cfg.columnLabel;
 
     const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null);
-    const HORIZONTES_TABLA = [null, 12, 9, 6, 3];
     const celdaAcum = (resultado) => {
       const v = resultado ? resultado.valor : null;
       return `<td class="num" style="color: ${v === null || v === undefined ? 'var(--muted)' : (v >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(v)}</td>`;
     };
+    $('colAcumHorizonte').textContent = `Acum. ${estado.horizonteTabla}M`;
     const tbody = $('dataTable');
     tbody.innerHTML = rows.map((r) => {
       const beneficioReal = calcularPrimaReal(r.ibcPct, r.bcvPct);
       const mesFila = r.periodo.slice(0, 7);
       const idxMes = conDatosMensual.findIndex((m) => m.mes === mesFila);
-      const celdasAcum = HORIZONTES_TABLA.map((h) => celdaAcum(idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, h) : null)).join('');
-      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdasAcum}</tr>`;
+      const acumTotal = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, null) : null;
+      const acumHorizonte = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, Number(estado.horizonteTabla)) : null;
+      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : ''}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : ''}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdaAcum(acumTotal)}${celdaAcum(acumHorizonte)}</tr>`;
     }).join('');
 
     const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : ''));
@@ -907,6 +913,14 @@
       estado.horizonte = btn.dataset.horizonte;
       document.querySelectorAll('.ibc-horizon-btn').forEach((b) => b.classList.toggle('active', b === btn));
       if (estado.monthlyRows) renderPrimaAcumulada(estado.monthlyRows, estado.horizonte);
+    });
+  });
+
+  document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      estado.horizonteTabla = btn.dataset.horizonteTabla;
+      document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((b) => b.classList.toggle('active', b === btn));
+      renderChartAndTable(estado.granularidad);
     });
   });
 
