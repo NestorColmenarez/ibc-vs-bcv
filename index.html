@@ -211,7 +211,7 @@
         <p class="ibc-prima-value" id="primaMensual">-</p>
       </div>
       <div class="ibc-prima-card">
-        <p class="ibc-prima-label">Prima real acumulada</p>
+        <p class="ibc-prima-label">Beneficio real acumulada</p>
         <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte de la prima acumulada">
           <button class="ibc-horizon-btn active" data-horizonte="12">12M</button>
           <button class="ibc-horizon-btn" data-horizonte="9">9M</button>
@@ -295,6 +295,11 @@
             <th class="num">BCV</th>
             <th class="num">Var. BCV</th>
             <th class="num">Beneficio Real</th>
+            <th class="num">Acum. Total</th>
+            <th class="num">Acum. 12M</th>
+            <th class="num">Acum. 9M</th>
+            <th class="num">Acum. 6M</th>
+            <th class="num">Acum. 3M</th>
           </tr>
         </thead>
         <tbody id="dataTable"></tbody>
@@ -558,21 +563,26 @@
     el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)';
   }
 
-  function calcularPrimaAcumuladaHorizonte(monthlyRows, horizonteMeses) {
-    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
-    if (conDatos.length < 2) return null;
-    const ultimo = conDatos[conDatos.length - 1];
+  function calcularAcumuladoEnIndice(conDatos, indiceHasta, horizonteMeses) {
+    const hasta = conDatos[indiceHasta];
     let inicio;
     if (horizonteMeses === null) {
       inicio = conDatos[0];
     } else {
-      const claveObjetivo = addMonthsToKey(ultimo.mes, -horizonteMeses);
+      const claveObjetivo = addMonthsToKey(hasta.mes, -horizonteMeses);
       inicio = conDatos.find((r) => r.mes === claveObjetivo);
       if (!inicio) return null;
     }
-    const crecIbc = ultimo.ibc / inicio.ibc;
-    const crecBcv = ultimo.bcv / inicio.bcv;
-    return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: ultimo.mes, esParcial: ultimo.esParcial };
+    if (inicio === hasta) return null;
+    const crecIbc = hasta.ibc / inicio.ibc;
+    const crecBcv = hasta.bcv / inicio.bcv;
+    return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial };
+  }
+
+  function calcularPrimaAcumuladaHorizonte(monthlyRows, horizonteMeses) {
+    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
+    if (conDatos.length < 2) return null;
+    return calcularAcumuladoEnIndice(conDatos, conDatos.length - 1, horizonteMeses);
   }
 
   function renderPrimaAcumulada(monthlyRows, horizonte) {
@@ -806,10 +816,19 @@
 
     $('colPeriodo').textContent = cfg.columnLabel;
 
+    const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null);
+    const HORIZONTES_TABLA = [null, 12, 9, 6, 3];
+    const celdaAcum = (resultado) => {
+      const v = resultado ? resultado.valor : null;
+      return `<td class="num" style="color: ${v === null || v === undefined ? 'var(--muted)' : (v >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(v)}</td>`;
+    };
     const tbody = $('dataTable');
     tbody.innerHTML = rows.map((r) => {
       const beneficioReal = calcularPrimaReal(r.ibcPct, r.bcvPct);
-      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td></tr>`;
+      const mesFila = r.periodo.slice(0, 7);
+      const idxMes = conDatosMensual.findIndex((m) => m.mes === mesFila);
+      const celdasAcum = HORIZONTES_TABLA.map((h) => celdaAcum(idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, h) : null)).join('');
+      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdasAcum}</tr>`;
     }).join('');
 
     const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : ''));
