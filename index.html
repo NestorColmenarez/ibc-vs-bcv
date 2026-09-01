@@ -304,7 +304,6 @@
             <th class="num">Var. BCV</th>
             <th class="num">Beneficio Real</th>
             <th class="num">Beneficio Real Acumulado</th>
-            <!-- <th class="num" id="colAcumHorizonte">Acum. 12M</th> -->
           </tr>
         </thead>
         <tbody id="dataTable"></tbody>
@@ -817,24 +816,25 @@
     // así que TTM en enero-2026 sigue comparando contra 2025 aunque el
     // rango visible esté acotado a 2026.
     const anioActual = String(new Date().getFullYear());
-    const rows = estado.rango === 'anio' ? filas.filter((r) => r.periodo.startsWith(anioActual)) : filas;
+    let rows = estado.rango === 'anio' ? filas.filter((r) => r.periodo.startsWith(anioActual)) : filas;
+
+    const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null);
+
+    rows = rows.slice(-Number(estado.horizonteTabla));
 
     $('colPeriodo').textContent = cfg.columnLabel;
 
-    const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null);
     const celdaAcum = (resultado) => {
       const v = resultado ? resultado.valor : null;
       return `<td class="num" style="color: ${v === null || v === undefined ? 'var(--muted)' : (v >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(v)}</td>`;
     };
-    $('colAcumHorizonte').textContent = `Acum. ${estado.horizonteTabla}M`;
     const tbody = $('dataTable');
     tbody.innerHTML = rows.map((r) => {
       const beneficioReal = calcularPrimaReal(r.ibcPct, r.bcvPct);
       const mesFila = r.periodo.slice(0, 7);
       const idxMes = conDatosMensual.findIndex((m) => m.mes === mesFila);
       const acumTotal = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, null) : null;
-      const acumHorizonte = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, Number(estado.horizonteTabla)) : null;
-      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : ''}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : ''}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdaAcum(acumTotal)}${celdaAcum(acumHorizonte)}</tr>`;
+      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : ''}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : ''}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdaAcum(acumTotal)}</tr>`;
     }).join('');
 
     const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : ''));
