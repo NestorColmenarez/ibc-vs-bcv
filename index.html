@@ -1,964 +1,115 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE045THZG7"></script>
-    <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-TE045THZG7');
-    </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IBC vs. Tasa BCV — variación mensual</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<!-- AdSense: descomenta esta linea con tu Publisher ID real una vez que tu     cuenta este aprobada (AdSense > Cuenta > Informacion de la cuenta).     No la actives antes de la aprobacion -- pedir anuncios con un ID falso     puede afectar la revision de la cuenta. -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241624099852028"
-     crossorigin="anonymous"></script>
-<meta name="google-adsense-account" content="ca-pub-4241624099852028">
-<style>
-    html, body {
-      margin: 0;
-      background: #0e1420;
-    }
-    body {
-      padding: 32px 16px;
-      box-sizing: border-box;
-    }
-    .ibc-root {
-      --bg: #0e1420;
-      --surface: #141b29;
-      --surface-2: #1a2333;
-      --paper: #f5f1e8;
-      --muted: #8b92a0;
-      --line: rgba(245, 241, 232, 0.10);
-      --ibc: #4a95e0;
-      --bcv: #e2703a;
-      --positive: #3dbd7d;
-      --negative: #e2586a;
-      --font-display: 'IBM Plex Serif', Georgia, serif;
-      --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE045THZG7"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TE045THZG7'); </script> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>IBC vs. Tasa BCV — variación mensual</title> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241624099852028" crossorigin="anonymous"></script> <meta name="google-adsense-account" content="ca-pub-4241624099852028"> <style> html, body { margin: 0; background: #0e1420; } body { padding: 32px 16px; box-sizing: border-box; } .ibc-root { --bg: #0e1420; --surface: #141b29; --surface-2: #1a2333; --paper: #f5f1e8; --muted: #8b92a0; --line: rgba(245, 241, 232, 0.10); --ibc: #4a95e0; --bcv: #e2703a; --positive: #3dbd7d; --negative: #e2586a; --font-display: 'IBM Plex Serif', Georgia, serif; --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif; --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace; max-width: 880px; margin: 0 auto; background: var(--bg); color: var(--paper); font-family: var(--font-body); } .ibc-root * { box-sizing: border-box; } .ibc-root button { font-family: var(--font-body); background: var(--surface-2); color: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px; cursor: pointer; } .ibc-root button:hover { background: #22304a; } .ibc-root button:focus-visible { outline: 2px solid var(--ibc); outline-offset: 2px; } .ibc-ticker { display: flex; gap: 0; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 13px; background: var(--surface); } .ibc-ticker .tk-item { flex: 1; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-right: 1px solid var(--line); } .ibc-ticker .tk-item:last-child { border-right: none; } .tk-label { color: var(--muted); letter-spacing: 0.06em; } .tk-arrow { font-size: 11px; } .tk-val { font-weight: 500; margin-left: auto; } .ibc-body { padding: 24px 24px 8px; } .ibc-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; } .ibc-section { padding: 30px 0; border-bottom: 1px solid var(--line); } .ibc-section:last-of-type { border-bottom: none; } .ibc-section-title { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1.3; margin: 0 0 8px; } .ibc-section-title.ibc-title-lg { font-size: 36px; font-weight: 600; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; } .ibc-section-question { font-family: var(--font-display); font-size: 16px; color: var(--paper); margin: 0 0 18px; max-width: 42ch; } .ibc-section-caption { color: var(--muted); font-size: 13.5px; line-height: 1.55; max-width: 58ch; margin: 0 0 18px; } .ibc-chart-title { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--paper); margin: 0 0 4px; } /* Hero (titular IBC +X% -- BCV +Y%) */ .ibc-hero { margin: 26px 0 4px; } .ibc-hero h1 { font-family: var(--font-display); font-weight: 500; font-size: 24px; line-height: 1.3; margin: 0 0 8px; letter-spacing: -0.01em; } .ibc-hero h1 .num-ibc { color: var(--ibc); } .ibc-hero h1 .num-bcv { color: var(--bcv); } .ibc-hero p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; } .ibc-valor-real-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 26px; } .ibc-valor-real-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; } .ibc-valor-real-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; } .ibc-valor-real-value { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin: 0; } .ibc-valor-real-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; } /* Numero protagonista interactivo */ .ibc-hero-figure { margin: 6px 0 20px; } .ibc-hero-value { font-family: var(--font-display); font-weight: 500; font-size: 56px; line-height: 1; letter-spacing: -0.01em; } .ibc-hero-status { font-size: 14px; margin-top: 8px; color: var(--muted); } .ibc-hero-status b { font-weight: 500; } .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; align-items: center; } .ibc-horizon-btn, .ibc-horizon-btn-tabla { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; } .ibc-horizon-btn:hover, .ibc-horizon-btn-tabla:hover { background: var(--surface-2); color: var(--paper); } .ibc-horizon-btn.active, .ibc-horizon-btn-tabla.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); } .ibc-horizon-btn:focus-visible, .ibc-horizon-btn-tabla:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; } .ibc-horizon-caption { font-size: 12.5px; color: var(--muted); margin: 8px 0 20px; } .ibc-meaning { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); } .ibc-meaning h3 { font-size: 13px; color: var(--paper); font-weight: 500; margin: 0 0 8px; } .ibc-meaning p { color: var(--muted); font-size: 13.5px; line-height: 1.6; max-width: 58ch; margin: 0; } .ibc-offline { display: none; font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0 0 20px; } .ibc-chart-wrap { position: relative; width: 100%; height: 260px; margin-bottom: 8px; } .ibc-period-selector { display: flex; gap: 6px; margin-bottom: 14px; } .ibc-period-btn { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; } .ibc-period-btn:hover:not(:disabled) { background: var(--surface-2); color: var(--paper); } .ibc-period-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--ibc); } .ibc-period-btn:disabled { opacity: 0.35; cursor: not-allowed; } .ibc-period-btn:focus-visible { outline: 2px solid var(--ibc); outline-offset: 2px; } .ibc-period-note { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: -4px 0 16px; } .ibc-range-row { display: flex; align-items: center; gap: 8px; margin: -6px 0 16px; } .ibc-range-label { font-size: 11px; color: var(--muted); } .ibc-range-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 3px 9px; cursor: pointer; } .ibc-range-btn:hover { background: var(--surface-2); color: var(--paper); } .ibc-range-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); } .ibc-range-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; } .ibc-table-wrap { max-height: 380px; overflow-y: auto; overflow-x: auto; border-radius: 8px; } .ibc-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 0 24px; font-size: 12px; color: var(--muted); } .ibc-legend span { display: flex; align-items: center; gap: 6px; } .ibc-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; } .ibc-footer-bar { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); } table.ibc-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 8px; } table.ibc-table th { text-align: left; color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 6px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); } table.ibc-table th.num, table.ibc-table td.num { text-align: right; font-family: var(--font-mono); } table.ibc-table td { padding: 9px 6px; border-bottom: 1px solid var(--line); } table.ibc-table tbody tr:hover { background: var(--surface); } .ibc-disclaimer { font-size: 11px; color: var(--muted); line-height: 1.6; padding: 18px 24px 24px; margin: 0; border-top: 1px solid var(--line); } .ibc-ad-slot { margin: 20px 0; text-align: center; } .ibc-ad-label { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; } .ibc-ad-placeholder { border: 1px dashed var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 12px; padding: 24px 12px; min-height: 90px; display: flex; align-items: center; justify-content: center; } @media (max-width: 480px) { .ibc-hero h1 { font-size: 20px; } .ibc-hero-value { font-size: 42px; } .ibc-section-title.ibc-title-lg { font-size: 28px; } .ibc-ticker { font-size: 12px; } .ibc-ticker .tk-item { padding: 8px 10px; } .ibc-body { padding: 18px 16px 4px; } .ibc-valor-real-value { font-size: 18px; } } @media (prefers-reduced-motion: reduce) { .ibc-root * { animation: none !important; transition: none !important; } } </style> </head> <body> <div class="ibc-root"> <div class="ibc-ticker"> <div class="tk-item" id="tickerIbc"></div> <div class="tk-item" id="tickerBcv"></div> </div> <div class="ibc-body"> <div class="ibc-offline" id="offlineBanner"></div>
 
-      max-width: 880px;
-      margin: 0 auto;
-      background: var(--bg);
-      color: var(--paper);
-      font-family: var(--font-body);
-    }
-    .ibc-root * { box-sizing: border-box; }
-    .ibc-root button {
-      font-family: var(--font-body);
-      background: var(--surface-2);
-      color: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 7px 12px;
-      cursor: pointer;
-    }
-    .ibc-root button:hover { background: #22304a; }
-    .ibc-root button:focus-visible { outline: 2px solid var(--ibc); outline-offset: 2px; }
+  <div class="ibc-section">
+    <p class="ibc-section-title">IBC vs BCV</p>
+    <p class="ibc-section-question">¿Qué ocurrió entre el mercado y el tipo de cambio?</p>
 
-    /* Ticker */
-    .ibc-ticker {
-      display: flex; gap: 0; border-bottom: 1px solid var(--line);
-      font-family: var(--font-mono); font-size: 13px; background: var(--surface);
-    }
-    .ibc-ticker .tk-item {
-      flex: 1; display: flex; align-items: center; gap: 8px;
-      padding: 10px 16px; border-right: 1px solid var(--line);
-    }
-    .ibc-ticker .tk-item:last-child { border-right: none; }
-    .tk-label { color: var(--muted); letter-spacing: 0.06em; }
-    .tk-arrow { font-size: 11px; }
-    .tk-val { font-weight: 500; margin-left: auto; }
-
-    .ibc-body { padding: 24px 24px 8px; }
-
-    .ibc-eyebrow {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); margin: 0 0 10px;
-    }
-
-    /* Hero */
-    .ibc-hero { margin-bottom: 22px; }
-    .ibc-hero h1 {
-      font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1.25;
-      margin: 0 0 8px; letter-spacing: -0.01em;
-    }
-    .ibc-hero h1 .num-ibc { color: var(--ibc); }
-    .ibc-hero h1 .num-bcv { color: var(--bcv); }
-    .ibc-hero p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
-    .ibc-beneficio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
-    .ibc-beneficio-card {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-      padding: 14px 16px;
-    }
-    .ibc-beneficio-label {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--muted); margin: 0 0 6px;
-    }
-    .ibc-beneficio-value { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin: 0; }
-    .ibc-beneficio-note { font-size: 11px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
-    .ibc-hist-section { margin-bottom: 24px; }
-    .ibc-hist-desc { font-size: 13px; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
-    .ibc-carousel-tabs { display: flex; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid var(--line); }
-    .ibc-carousel-tab { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: var(--font-display); font-size: 17px; font-weight: 500; padding: 0 0 10px; margin: 0; cursor: pointer; }
-    .ibc-carousel-tab:hover { color: var(--paper); }
-    .ibc-carousel-tab.active { color: var(--paper); border-bottom-color: var(--positive); }
-    .ibc-carousel-tab:focus-visible { outline: 2px solid var(--positive); outline-offset: 2px; }
-    .ibc-horizon-selector { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; align-items: center; }
-    .ibc-horizon-btn, .ibc-horizon-btn-tabla { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; cursor: pointer; }
-    .ibc-horizon-btn:hover, .ibc-horizon-btn-tabla:hover { background: var(--surface-2); color: var(--paper); }
-    .ibc-horizon-btn.active, .ibc-horizon-btn-tabla.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
-    .ibc-horizon-btn:focus-visible, .ibc-horizon-btn-tabla:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
-
-    .ibc-offline {
-      display: none; font-size: 12px; color: var(--muted); background: var(--surface);
-      border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0 0 20px;
-    }
-
-    .ibc-chart-wrap { position: relative; width: 100%; height: 260px; margin-bottom: 8px; }
-
-    .ibc-period-selector { display: flex; gap: 6px; margin-bottom: 14px; }
-    .ibc-period-btn {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-      background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 6px;
-      padding: 6px 12px; cursor: pointer;
-    }
-    .ibc-period-btn:hover:not(:disabled) { background: var(--surface-2); color: var(--paper); }
-    .ibc-period-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--ibc); }
-    .ibc-period-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .ibc-period-btn:focus-visible { outline: 2px solid var(--ibc); outline-offset: 2px; }
-    .ibc-period-note { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: -4px 0 16px; }
-
-    .ibc-range-row { display: flex; align-items: center; gap: 8px; margin: -6px 0 16px; }
-    .ibc-range-label { font-size: 11px; color: var(--muted); }
-    .ibc-range-btn {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
-      background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 5px;
-      padding: 3px 9px; cursor: pointer;
-    }
-    .ibc-range-btn:hover { background: var(--surface-2); color: var(--paper); }
-    .ibc-range-btn.active { background: var(--surface-2); color: var(--paper); border-color: var(--paper); }
-    .ibc-range-btn:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
-
-    .ibc-table-wrap { max-height: 380px; overflow-y: auto; overflow-x: auto; border-radius: 8px; }
-
-    .ibc-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 0 24px; font-size: 12px; color: var(--muted); }
-    .ibc-legend span { display: flex; align-items: center; gap: 6px; }
-    .ibc-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
-
-    .ibc-footer-bar {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-      padding: 12px 16px; margin-bottom: 22px; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted);
-    }
-
-    table.ibc-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 8px; }
-    table.ibc-table th {
-      text-align: left; color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: 0.06em;
-      text-transform: uppercase; padding: 8px 6px; border-bottom: 1px solid var(--line);
-      position: sticky; top: 0; background: var(--bg);
-    }
-    table.ibc-table th.num, table.ibc-table td.num { text-align: right; font-family: var(--font-mono); }
-    table.ibc-table td { padding: 9px 6px; border-bottom: 1px solid var(--line); }
-    table.ibc-table tbody tr:hover { background: var(--surface); }
-
-    .ibc-disclaimer {
-      font-size: 11px; color: var(--muted); line-height: 1.6; padding: 18px 24px 24px; margin: 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .ibc-ad-slot { margin: 20px 0; text-align: center; }
-    .ibc-ad-label {
-      display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
-    }
-    .ibc-ad-placeholder {
-      border: 1px dashed var(--line); border-radius: 8px; background: var(--surface);
-      color: var(--muted); font-size: 12px; padding: 24px 12px; min-height: 90px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    @media (max-width: 480px) {
-      .ibc-hero h1 { font-size: 21px; }
-      .ibc-ticker { font-size: 12px; }
-      .ibc-ticker .tk-item { padding: 8px 10px; }
-      .ibc-body { padding: 18px 16px 4px; }
-      .ibc-beneficio-value { font-size: 18px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ibc-root * { animation: none !important; transition: none !important; }
-    }
-  </style>
-</head>
-<body>
-
-<div class="ibc-root">
-  <div class="ibc-ticker">
-    <div class="tk-item" id="tickerIbc"></div>
-    <div class="tk-item" id="tickerBcv"></div>
-  </div>
-
-  <div class="ibc-body">
-    <div class="ibc-offline" id="offlineBanner"></div>
-
-    <div class="ibc-beneficio-grid">
-      <div class="ibc-beneficio-card">
-        <p class="ibc-beneficio-label">Beneficio real mensual</p>
-        <p class="ibc-beneficio-value" id="beneficioMensual">-</p>
-      </div>
-      <div class="ibc-beneficio-card">
-        <p class="ibc-beneficio-label">Beneficio real acumulado</p>
-        <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte del beneficio acumulado">
-          <button class="ibc-horizon-btn active" data-horizonte="12">12M</button>
-          <button class="ibc-horizon-btn" data-horizonte="9">9M</button>
-          <button class="ibc-horizon-btn" data-horizonte="6">6M</button>
-          <button class="ibc-horizon-btn" data-horizonte="3">3M</button>
-        </div>
-        <p class="ibc-beneficio-value" id="beneficioAnual">-</p>
-        <p class="ibc-beneficio-note" id="beneficioAnualNota" style="display:none;"></p>
-      </div>
-    </div>
-
-    <p class="ibc-eyebrow" style="margin-top: 4px;">📈 IBC vs BCV — Variación por periodo</p>
-
-    <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad">
-      <button class="ibc-period-btn" data-periodo="semanal">Semanal</button>
-      <button class="ibc-period-btn active" data-periodo="mensual">Mensual</button>
-    </div>
-
-    <div class="ibc-range-row" role="group" aria-label="Seleccionar rango de fechas">
-      <span class="ibc-range-label">Rango:</span>
-      <button class="ibc-range-btn active" data-rango="todo">Todo</button>
-      <button class="ibc-range-btn" data-rango="anio" id="rangoAnioBtn">Año actual</button>
-    </div>
+    <div class="ibc-period-selector" role="group" aria-label="Seleccionar temporalidad"> <button class="ibc-period-btn" data-periodo="semanal">Semanal</button> <button class="ibc-period-btn active" data-periodo="mensual">Mensual</button> </div>
+    <div class="ibc-range-row" role="group" aria-label="Seleccionar rango de fechas"> <span class="ibc-range-label">Rango:</span> <button class="ibc-range-btn active" data-rango="todo">Todo</button> <button class="ibc-range-btn" data-rango="anio" id="rangoAnioBtn">Año actual</button> </div>
     <p class="ibc-period-note" id="periodEmptyMsg" style="display:none;"></p>
 
-    <p class="ibc-eyebrow" style="margin-top: 4px;">Bolsa de Valores de Caracas · Banco Central de Venezuela</p>
-    <div class="ibc-hero">
-      <h1 id="heroHeadline">Cargando…</h1>
-      <p id="heroSub"></p>
-    </div>
+    <div class="ibc-chart-wrap"> <canvas id="mainChart" role="img" aria-label="Variación del IBC comparada con la tasa BCV">Gráfico de variación IBC vs tasa BCV</canvas> </div>
+    <div class="ibc-legend"> <span><i style="background: var(--ibc);"></i>IBC (índice bursátil)</span> <span><i style="background: var(--bcv);"></i>Tasa BCV (Bs/USD)</span> </div>
 
-    <div class="ibc-chart-wrap">
-      <canvas id="mainChart" role="img" aria-label="Variación del IBC comparada con la tasa BCV">Gráfico de variación IBC vs tasa BCV</canvas>
-    </div>
-
-    <div class="ibc-legend">
-      <span><i style="background: var(--ibc);"></i>IBC (índice bursátil)</span>
-      <span><i style="background: var(--bcv);"></i>Tasa BCV (Bs/USD)</span>
-    </div>
-
-    <div class="ibc-hist-section">
-      <div class="ibc-carousel-tabs" role="tablist" aria-label="Seleccionar gráfico">
-        <button class="ibc-carousel-tab active" data-tab="indice" role="tab" aria-selected="true">Índice de beneficio acumulado</button>
-        <button class="ibc-carousel-tab" data-tab="beneficio" role="tab" aria-selected="false">Beneficio real</button>
-      </div>
-      <p class="ibc-hist-desc" id="carouselDesc"></p>
-      <div class="ibc-chart-wrap" style="height: 220px;">
-        <canvas id="carouselChart" role="img" aria-label="Gráfico de beneficio real">Gráfico de beneficio real</canvas>
-      </div>
-    </div>
-
-    <div class="ibc-ad-slot">
-      <span class="ibc-ad-label">Publicidad</span>
-      <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div>
-      <!--
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="XXXXXXXXXX"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      -->
-    </div>
-
-    <div class="ibc-footer-bar">
-      <div>
-        <span id="lastUpdated">—</span><br/>
-        Fuente: Bolsa de Valores de Caracas (IBC) y bcv.today, que republica la tasa oficial del BCV.
-      </div>
-      <button id="refreshBtn">↻ Actualizar</button>
-    </div>
-
-    <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte para la tabla">
-      <span class="ibc-range-label">Beneficio acumulado por horizonte:</span>
-      <button class="ibc-horizon-btn-tabla active" data-horizonte-tabla="12">12M</button>
-      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="9">9M</button>
-      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="6">6M</button>
-      <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="3">3M</button>
-    </div>
-
-    <div class="ibc-table-wrap">
-      <table class="ibc-table">
-        <thead>
-          <tr>
-            <th id="colPeriodo">Mes</th>
-            <th class="num">IBC</th>
-            <th class="num">Var. IBC</th>
-            <th class="num">BCV</th>
-            <th class="num">Var. BCV</th>
-            <th class="num">Beneficio Real</th>
-            <th class="num">Beneficio Real Acumulado</th>
-          </tr>
-        </thead>
-        <tbody id="dataTable"></tbody>
-      </table>
-    </div>
-
-    <div class="ibc-ad-slot">
-      <span class="ibc-ad-label">Publicidad</span>
-      <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div>
-      <!--
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="YYYYYYYYYY"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      -->
-    </div>
+    <div class="ibc-hero"> <h1 id="heroHeadline">Cargando…</h1> <p id="heroSub"></p> <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 10px 0 0;">Bolsa de Valores de Caracas · Banco Central de Venezuela</p> </div>
   </div>
 
-  <p class="ibc-disclaimer">
-    Esta información es educativa e informativa, no constituye asesoría financiera ni una recomendación de inversión garantizada. Se muestran los meses buenos y malos sin sesgo. * = mes en curso, cierre parcial a la fecha de la última actualización.
-  </p>
+  <div class="ibc-section">
+    <p class="ibc-section-title ibc-title-lg">📈 Valor Real Acumulado</p>
+    <p class="ibc-section-question">¿Cuál ha sido el resultado acumulado?</p>
 
+    <div class="ibc-valor-real-grid">
+      <div class="ibc-valor-real-card"> <p class="ibc-valor-real-label">Valor real mensual</p> <p class="ibc-valor-real-value" id="valorRealMensual">-</p> </div>
+      <div class="ibc-valor-real-card"> <p class="ibc-valor-real-label">Valor real acumulado</p> <p class="ibc-valor-real-value" id="valorRealAcumuladoCard">-</p> <p class="ibc-valor-real-note" id="valorRealAcumuladoCardNota"></p> </div>
+    </div>
+
+    <div class="ibc-hero-figure"> <div class="ibc-hero-value" id="valorRealAcumuladoHero">—</div> <div class="ibc-hero-status" id="valorRealAcumuladoHeroStatus"></div> </div>
+
+    <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte del valor real acumulado"> <button class="ibc-horizon-btn" data-horizonte-hero="3">3M</button> <button class="ibc-horizon-btn" data-horizonte-hero="6">6M</button> <button class="ibc-horizon-btn" data-horizonte-hero="9">9M</button> <button class="ibc-horizon-btn active" data-horizonte-hero="12">12M</button> </div>
+    <p class="ibc-horizon-caption" id="valorRealAcumuladoHeroCaption"></p>
+
+    <p class="ibc-chart-title">Evolución del Valor Real Acumulado</p>
+    <div class="ibc-chart-wrap" style="height: 220px;"> <canvas id="acumuladoChart" role="img" aria-label="Evolución del valor real acumulado">Gráfico de evolución del valor real acumulado</canvas> </div>
+
+    <div class="ibc-meaning"> <h3>¿Qué significa?</h3> <p>Por encima de 0, el IBC creció más rápido que la devaluación del bolívar — el dinero invertido en la bolsa ganó poder de compra real: eso es <b style="color: var(--positive);">Beneficio Real</b>. Por debajo de 0, la devaluación superó al mercado y ese dinero perdió valor, aunque el IBC en bolívares haya subido: eso es <b style="color: var(--negative);">Pérdida Real</b>. En 0 está el punto de equilibrio.</p> </div>
+  </div>
+
+  <div class="ibc-section">
+    <p class="ibc-section-title">📊 Detalle del comportamiento real</p>
+    <p class="ibc-section-question">¿Cómo se produjo el resultado acumulado?</p>
+    <p class="ibc-section-caption">Cada barra es el valor real de un mes. No se suman: se componen entre sí (razón de crecimientos, mes tras mes) para formar el resultado acumulado de arriba.</p>
+    <div class="ibc-chart-wrap" style="height: 240px;"> <canvas id="detalleChart" role="img" aria-label="Valor real mensual, en barras">Gráfico de barras del valor real mensual</canvas> </div>
+  </div>
+
+  <div class="ibc-ad-slot"> <span class="ibc-ad-label">Publicidad</span> <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div> <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> --> </div>
+
+  <div class="ibc-footer-bar"> <div> <span id="lastUpdated">—</span><br/> Fuente: Bolsa de Valores de Caracas (IBC) y bcv.today, que republica la tasa oficial del BCV. </div> <button id="refreshBtn">↻ Actualizar</button> </div>
+
+  <div class="ibc-horizon-selector" role="group" aria-label="Seleccionar horizonte para la tabla"> <span class="ibc-range-label">Ver los últimos:</span> <button class="ibc-horizon-btn-tabla active" data-horizonte-tabla="12">12M</button> <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="9">9M</button> <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="6">6M</button> <button class="ibc-horizon-btn-tabla" data-horizonte-tabla="3">3M</button> </div>
+
+  <div class="ibc-table-wrap"> <table class="ibc-table"> <thead> <tr> <th id="colPeriodo">Mes</th> <th class="num">IBC</th> <th class="num">Var. IBC</th> <th class="num">BCV</th> <th class="num">Var. BCV</th> <th class="num">Valor Real Mensual</th> <th class="num">Valor Real Acum.</th> </tr> </thead> <tbody id="dataTable"></tbody> </table> </div>
+
+  <div class="ibc-ad-slot"> <span class="ibc-ad-label">Publicidad</span> <div class="ibc-ad-placeholder">Espacio reservado -- anuncio responsive</div> <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="YYYYYYYYYY" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> --> </div>
+
+  <p class="ibc-disclaimer"> Esta información es educativa e informativa, no constituye asesoría financiera ni una recomendación de inversión garantizada. Se muestran los meses buenos y malos sin sesgo. * = mes en curso, cierre parcial a la fecha de la última actualización. </p>
 </div>
-
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 (function () {
   const DATA_URL = 'https://raw.githubusercontent.com/NestorColmenarez/ibc-vs-bcv-data/main/data/cierres.json';
   const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-  // Respaldo diario embebido — se usa si el entorno bloquea peticiones de red
-  // salientes (algunos visores de artifacts solo permiten <script> de un CDN).
-  // Formato comprimido: fecha de inicio + pares [ibc, bcv] consecutivos día a
-  // día (sin huecos de calendario) — evita repetir 236 fechas completas.
-  // Con esto Semanal/Mensual/TTM funcionan igual, con o sin conexión.
-  // Capturado el 24/08/2026 desde la misma fuente que consume el fetch en vivo.
   const FALLBACK_ACTUALIZADO_EN = '2026-08-25T03:23:22.286Z';
   const FALLBACK_DIARIO = {"inicio":"2025-08-01","actualizadoEn":"2026-08-25T03:23:22.286Z","pares":[[null,125.4247],[null,125.4247],[null,125.4247],[null,126.2802],[null,127.1097],[null,128.2409],[null,129.0535],[null,130.0652],[null,130.0652],[null,130.0652],[null,131.1241],[null,132.3026],[null,133.5159],[null,134.4812],[null,135.6399],[null,135.6399],[null,135.6399],[null,135.6399],[null,136.8931],[null,138.1283],[null,139.4016],[null,140.66],[null,140.66],[null,140.66],[781.41,141.8843],[811.37,143.0381],[820.86,144.3732],[821.65,145.7453],[823.17,147.0825],[null,147.0825],[null,147.0825],[816.3,148.444],[866.1,149.4677],[896.39,150.7952],[965.25,151.7627],[992.78,152.8216],[null,152.8216],[null,152.8216],[1017.86,154.0108],[1003.66,154.9825],[1012,156.3739],[1006.55,157.7287],[1009.46,158.9289],[null,158.9289],[null,158.9289],[null,158.9289],[987.62,160.4479],[972.05,161.888],[971.73,163.6474],[967.57,165.4101],[null,165.4101],[null,165.4101],[960.63,166.5834],[964.69,168.4157],[1038.18,169.9761],[1052.25,171.8458],[1082.69,173.7361],[null,173.7361],[null,173.7361],[1086.4,175.6471],[1082.32,177.6143],[1053.52,179.4308],[1058.57,181.3037],[1114.73,183.1369],[null,183.1369],[null,183.1369],[1102.03,185.3983],[1118.62,187.2893],[1092.27,189.2594],[1106.64,191.3661],[1135.16,193.2996],[null,193.2996],[null,193.2996],[1168.38,195.2491],[1200.7,197.2456],[1319.37,199.1072],[1416.04,201.4665],[1466.28,203.742],[null,203.742],[null,203.742],[null,205.6754],[1465.01,207.8938],[1473.2,210.2825],[1608.92,212.4837],[1631.36,214.419],[null,214.419],[null,214.419],[1653.41,216.3714],[1654.87,218.17],[1641.74,219.8737],[1600.42,221.7438],[1619.77,223.6459],[null,223.6459],[null,223.6459],[1595.66,223.9622],[1606.71,224.3762],[1633.71,226.1305],[1617.38,227.5567],[1602.81,228.4796],[null,228.4796],[null,228.4796],[1614.45,231.0462],[1593.89,231.0938],[1614.19,233.0458],[1690.12,233.5576],[1698.82,234.8715],[null,234.8715],[null,234.8715],[1665.82,236.4601],[1610.73,236.8389],[1599.61,237.7505],[1677.78,240.3209],[1590.1,241.578],[null,241.578],[null,241.578],[null,241.578],[1552.2,243.1105],[1550.42,243.5727],[1564.09,244.6504],[1551.78,245.6697],[null,245.6697],[null,245.6697],[1551.63,247.3003],[1519.61,247.4071],[1551.92,249.1989],[1535.43,251.8867],[1519.15,254.8705],[null,254.8705],[null,254.8705],[null,254.8705],[1487.6,257.9287],[1499.25,262.1036],[1489.3,265.0662],[1473.17,267.7499],[null,267.7499],[null,267.7499],[1455.03,270.7893],[1454.66,273.5861],[1450.57,276.5769],[1490.59,279.5629],[1565.28,282.5128],[null,282.5128],[null,282.5128],[1548.78,285.4024],[1554.83,288.4494],[null,288.4494],[null,288.4494],[1605.73,291.3524],[null,291.3524],[null,291.3524],[1969.02,294.9699],[2082.26,298.1431],[null,298.1431],[null,301.3709],[2230.81,301.3709],[null,304.6796],[null,304.6796],[2597.68,304.6796],[3896.77,308.1546],[4458.84,311.8814],[5097.39,321.0323],[6009.58,325.3894],[null,330.3751],[null,330.3751],[null,330.3751],[5808.58,330.3751],[5569.43,336.4596],[5242.02,339.1495],[4805.5,341.7425],[null,344.5071],[null,344.5071],[null,344.5071],[4436.91,344.5071],[4084.22,347.2631],[3773.63,349.9272],[3632.04,352.7063],[null,355.5528],[null,355.5528],[3528.09,355.5528],[3376.14,358.9247],[3259.87,361.4906],[3368.39,363.6623],[3598.71,367.3069],[null,370.2544],[null,370.2544],[3864.86,370.2544],[4418.23,372.1057],[4874.6,375.0825],[5450.44,378.4582],[6158.96,381.1074],[null,382.6318],[null,382.6318],[5999.52,382.6318],[5246.47,385.272],[5317.44,388.7394],[5319.37,390.2944],[5433.1,393.2216],[null,396.3674],[null,396.3674],[null,396.3674],[null,396.3674],[5682.72,396.3674],[5847.38,398.7456],[6013.52,402.3343],[null,405.3518],[null,405.3518],[6164.07,405.3518],[6646.25,407.3786],[6593.89,411.0857],[6577.34,414.0455],[6536.65,417.3579],[null,419.9873],[null,419.9873],[6556.12,419.9873],[6681.85,421.8772],[6608.45,425.6741],[6547.91,427.9302],[6596.3,431.0113],[null,431.0113],[null,431.0113],[6681.46,433.1664],[6656.64,436.2419],[6599.56,438.205],[6591.66,440.9657],[6624.97,443.2587],[null,446.8048],[null,446.8048],[6809.1,446.8048],[6893.73,448.3686],[6964.71,451.5072],[null,455.2547],[6958.43,455.2547],[null,457.0757],[null,457.0757],[6821.23,457.0757],[6676.01,459.4525],[6472.57,462.6687],[6430.44,466.6014],[6366.77,468.5145],[null,471.7004],[null,471.7004],[6397.39,471.7004],[6349.81,473.8702],[6288.95,473.9176],[null,474.0598],[null,474.0598],[null,474.0598],[null,474.0598],[6126.47,474.0598],[5838.99,474.5338],[5763.52,475.0083],[5615.41,475.9583],[5555.14,476.4342],[null,477.1488],[null,477.1488],[5429.74,477.1488],[5402.04,477.6259],[5554.97,478.5811],[5731.65,479.7775],[5859.72,480.2572],[null,481.2177],[null,481.2177],[5902.55,481.2177],[5898.16,481.6989],[5856.51,482.7586],[5845.81,483.3379],[5835.16,483.8695],[null,484.7404],[null,484.7404],[5665.76,484.7404],[5620.15,485.2251],[5715.79,486.1955],[5709.1,487.1192],[null,489.5547],[null,489.5547],[null,489.5547],[5722.4,489.5547],[5739.87,490.0442],[5754.48,493.3765],[5688.16,496.8301],[5663.44,499.8608],[null,499.8608],[null,499.8608],[5686.28,500.4606],[5625.33,504.9146],[5657.06,508.6004],[5645.4,510.7873],[5665.75,515.18],[null,515.18],[null,515.18],[null,515.18],[5771.23,517.9619],[5613.57,520.9142],[5613.2,523.675],[5665.63,526.8694],[null,526.8694],[null,526.8694],[5653.14,530.5047],[5748.44,535.3853],[5669.64,540.0431],[5778.08,544.5794],[5763.34,549.3716],[null,549.3716],[null,549.3716],[5737.66,554.4258],[5586.83,557.9741],[5618.8,558.6436],[5643.14,560.3753],[5598.99,563.2892],[null,563.2892],[null,563.2892],[null,563.2892],[5562.9,567.6828],[5500.19,572.6784],[5497.39,577.5461],[5440.6,582.6862],[null,582.6862],[null,582.6862],[5519.3,587.4059],[5424.98,592.5163],[5417.18,596.7824],[5397.11,602.3324],[5601.96,607.3919],[null,607.3919],[null,607.3919],[5521.8,612.4332],[5727,617.6388],[null,617.6388],[null,621.5299],[null,622.2135],[null,622.2135],[null,622.2135],[null,622.2135],[5478.02,623.0223],[5498.12,633.3644],[5482.36,639.7029],[5382.15,652.9726],[null,652.9726],[null,652.9726],[5257.4,667.05],[5242.33,674.9305],[5337.84,685.9427],[5354.73,700.2249],[5342.15,709.6935],[null,709.6935],[null,709.6935],[5329.23,721.3456],[5249.49,723.999],[5213.32,725.747],[5139.04,727.4512],[5144.74,732.4787],[null,732.4787],[null,732.4787],[5128.15,736.9339],[5096.1,737.2321],[5171.01,737.2321],[5173.61,737.8816],[null,737.8816],[null,737.8816],[null,737.8816],[5158.53,742.2292],[5135.29,742.8105],[5129.71,744.2264],[5110.92,745.6371],[5134.46,746.6297],[null,746.6297],[null,746.6297],[5163.41,748.7864],[5138.01,752.0943],[5154.6,755.1552],[5158.98,755.9001],[5256.49,756.7083],[null,756.7083],[null,756.7083],[5218.28,757.5406],[5237.01,761.2167],[5142.29,764.3486],[5187.02,766.8603],[5396.5,771.0714],[null,771.0714],[null,771.0714],[5509.86,772.5441],[5524.15,773.3125],[5562.55,775.3356],[5689.78,777.4161],[5864.39,779.9522],[null,779.9522],[null,779.9522],[5920.46,784.6633],[null,785.0693]]};
-
-  function expandirFallbackDiario() {
-    const [y0, m0, d0] = FALLBACK_DIARIO.inicio.split('-').map(Number);
-    const cursor = new Date(Date.UTC(y0, m0 - 1, d0));
-    return FALLBACK_DIARIO.pares.map(([ibc, bcv]) => {
-      const fecha = cursor.toISOString().slice(0, 10);
-      cursor.setUTCDate(cursor.getUTCDate() + 1);
-      return { fecha, ibc, bcv };
-    });
-  }
-
+  function expandirFallbackDiario() { const [y0, m0, d0] = FALLBACK_DIARIO.inicio.split('-').map(Number); const cursor = new Date(Date.UTC(y0, m0 - 1, d0)); return FALLBACK_DIARIO.pares.map(([ibc, bcv]) => { const fecha = cursor.toISOString().slice(0, 10); cursor.setUTCDate(cursor.getUTCDate() + 1); return { fecha, ibc, bcv }; }); }
   let chart = null;
-  let carouselChart = null;
-
+  let acumuladoChart = null;
+  let detalleChart = null;
   const $ = (id) => document.getElementById(id);
-
-  function monthLabel(mesKey) {
-    const [y, m] = mesKey.split('-');
-    return `${MESES[parseInt(m, 10) - 1]}-${y.slice(2)}`;
-  }
-  function fmtPct(v) {
-    if (v === null || v === undefined) return '—';
-    const s = v.toFixed(2) + '%';
-    return v > 0 ? '+' + s : s;
-  }
-  function fmtFecha(iso) {
-    try { return new Date(iso).toLocaleString('es-VE', { dateStyle: 'medium', timeStyle: 'short' }); }
-    catch (e) { return iso; }
-  }
-  function esMesActual(mesKey) {
-    const hoy = new Date();
-    return mesKey === `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`;
-  }
-  function prefersReducedMotion() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  // ---- Selector de temporalidad ----
-  function ddmm(fechaISO) {
-    const [, m, d] = fechaISO.split('-');
-    return `${d}/${m}`;
-  }
-  function mondayOfWeek(fechaStr) {
-    const d = new Date(fechaStr + 'T00:00:00Z');
-    const day = d.getUTCDay();
-    d.setUTCDate(d.getUTCDate() + (day === 0 ? -6 : 1 - day));
-    return d.toISOString().slice(0, 10);
-  }
+  function monthLabel(mesKey) { const [y, m] = mesKey.split('-'); return `${MESES[parseInt(m, 10) - 1]}-${y.slice(2)}`; }
+  function fmtPct(v) { if (v === null || v === undefined) return '—'; const s = v.toFixed(2) + '%'; return v > 0 ? '+' + s : s; }
+  function fmtFecha(iso) { try { return new Date(iso).toLocaleString('es-VE', { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return iso; } }
+  function esMesActual(mesKey) { const hoy = new Date(); return mesKey === `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`; }
+  function prefersReducedMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function ddmm(fechaISO) { const [, m, d] = fechaISO.split('-'); return `${d}/${m}`; }
+  function mondayOfWeek(fechaStr) { const d = new Date(fechaStr + 'T00:00:00Z'); const day = d.getUTCDay(); d.setUTCDate(d.getUTCDate() + (day === 0 ? -6 : 1 - day)); return d.toISOString().slice(0, 10); }
   const HOY_ISO = new Date().toISOString().slice(0, 10);
-
-  const PERIODOS = {
-    semanal: {
-      cap: Infinity, columnLabel: 'Semana', varLabel: 'semanal', lookback: 1,
-      bucketKey: (fecha) => mondayOfWeek(fecha),
-      periodLabel: (key) => ddmm(key),
-      esActual: (key) => key === mondayOfWeek(HOY_ISO),
-    },
-    mensual: {
-      cap: Infinity, columnLabel: 'Mes', varLabel: 'mensual', lookback: 1,
-      bucketKey: (fecha) => fecha.slice(0, 7),
-      periodLabel: (key) => monthLabel(key),
-      esActual: (key) => esMesActual(key),
-    },
-  };
-
-  // Suma "n" meses a una clave "YYYY-MM" (usado para avisar desde cuándo
-  // habrá suficiente historia para calcular el TTM).
-  function addMonthsToKey(mesKey, n) {
-    const [y, m] = mesKey.split('-').map(Number);
-    const total = y * 12 + (m - 1) + n;
-    const ny = Math.floor(total / 12);
-    const nm = (total % 12) + 1;
-    return `${ny}-${String(nm).padStart(2, '0')}`;
-  }
-
-  // Agrega cierres diarios al periodo indicado, tomando el último valor
-  // disponible de cada serie dentro de ese periodo (IBC y BCV por separado,
-  // ya que no siempre "cierran" el mismo día).
-  function aggregateByPeriod(cierres, granularidad) {
-    const keyFn = PERIODOS[granularidad].bucketKey;
-    const ibcByKey = {}, bcvByKey = {};
-    cierres.forEach((c) => {
-      const key = keyFn(c.fecha);
-      if (c.ibc !== null && c.ibc !== undefined) {
-        if (!ibcByKey[key] || c.fecha > ibcByKey[key].fecha) ibcByKey[key] = { fecha: c.fecha, valor: c.ibc };
-      }
-      if (c.bcv !== null && c.bcv !== undefined) {
-        if (!bcvByKey[key] || c.fecha > bcvByKey[key].fecha) bcvByKey[key] = { fecha: c.fecha, valor: c.bcv };
-      }
-    });
-    const keys = [...new Set([...Object.keys(ibcByKey), ...Object.keys(bcvByKey)])].sort();
-    return keys.map((periodo) => ({
-      periodo, ibc: ibcByKey[periodo]?.valor ?? null, bcv: bcvByKey[periodo]?.valor ?? null,
-    }));
-  }
-
-  // Cada serie compara contra su propio valor "lookback" posiciones atrás
-  // (contando solo entradas no nulas de esa serie) — no contra la fila
-  // anterior del array combinado, que puede tener huecos (ej. IBC no opera
-  // fines de semana, pero BCV sí publica). lookback=1 es "contra el periodo
-  // anterior" (semanal, mensual); lookback=12 es TTM: contra el mismo mes
-  // de hace un año.
-  function withVariationGeneric(rows, esActualFn, lookback = 1) {
-    const histIbc = [], histBcv = [];
-    return rows.map((r) => {
-      const prevIbc = histIbc.length >= lookback ? histIbc[histIbc.length - lookback] : null;
-      const prevBcv = histBcv.length >= lookback ? histBcv[histBcv.length - lookback] : null;
-      const ibcPct = prevIbc !== null && r.ibc !== null ? ((r.ibc - prevIbc) / prevIbc) * 100 : null;
-      const bcvPct = prevBcv !== null && r.bcv !== null ? ((r.bcv - prevBcv) / prevBcv) * 100 : null;
-      if (r.ibc !== null && r.ibc !== undefined) histIbc.push(r.ibc);
-      if (r.bcv !== null && r.bcv !== undefined) histBcv.push(r.bcv);
-      return { ...r, esParcial: esActualFn(r.periodo), ibcPct, bcvPct };
-    });
-  }
-
-  function monthlyFromDaily(cierres) {
-    const ibcByMonth = {}, bcvByMonth = {};
-    cierres.forEach((c) => {
-      const mes = c.fecha.slice(0, 7);
-      if (c.ibc !== null && c.ibc !== undefined) {
-        if (!ibcByMonth[mes] || c.fecha > ibcByMonth[mes].fecha) ibcByMonth[mes] = { fecha: c.fecha, valor: c.ibc };
-      }
-      if (c.bcv !== null && c.bcv !== undefined) {
-        if (!bcvByMonth[mes] || c.fecha > bcvByMonth[mes].fecha) bcvByMonth[mes] = { fecha: c.fecha, valor: c.bcv };
-      }
-    });
-    const meses = [...new Set([...Object.keys(ibcByMonth), ...Object.keys(bcvByMonth)])].sort();
-    return meses.map((mes) => ({
-      mes, ibc: ibcByMonth[mes]?.valor ?? null, bcv: bcvByMonth[mes]?.valor ?? null,
-    }));
-  }
-
-  function withVariation(rows) {
-    return rows.map((r, i) => {
-      const prev = i > 0 ? rows[i - 1] : null;
-      return {
-        ...r,
-        esParcial: esMesActual(r.mes),
-        ibcPct: prev && prev.ibc && r.ibc !== null ? ((r.ibc - prev.ibc) / prev.ibc) * 100 : null,
-        bcvPct: prev && prev.bcv && r.bcv !== null ? ((r.bcv - prev.bcv) / prev.bcv) * 100 : null,
-      };
-    });
-  }
-
-  function tickerArrow(actual, anterior) {
-    if (anterior === null || anterior === undefined || actual === anterior) return { symbol: '▬', color: 'var(--muted)' };
-    return actual > anterior ? { symbol: '▲', color: 'var(--positive)' } : { symbol: '▼', color: 'var(--negative)' };
-  }
-
-  function paintTicker(elId, label, valor, anterior, decimals) {
-    const el = $(elId);
-    if (valor === null || valor === undefined) {
-      el.innerHTML = `<span class="tk-label">${label}</span><span class="tk-val">—</span>`;
-      return;
-    }
-    const { symbol, color } = tickerArrow(valor, anterior);
-    el.innerHTML = `<span class="tk-label">${label}</span><span class="tk-arrow" style="color:${color}">${symbol}</span><span class="tk-val">${valor.toLocaleString('es-VE', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}</span>`;
-  }
-
-  function renderTickerFromDaily(cierres) {
-    const ibcSerie = cierres.filter((c) => c.ibc !== null && c.ibc !== undefined);
-    const bcvSerie = cierres.filter((c) => c.bcv !== null && c.bcv !== undefined);
-    const ibcLast = ibcSerie[ibcSerie.length - 1], ibcPrev = ibcSerie[ibcSerie.length - 2];
-    const bcvLast = bcvSerie[bcvSerie.length - 1], bcvPrev = bcvSerie[bcvSerie.length - 2];
-    paintTicker('tickerIbc', 'IBC', ibcLast?.ibc ?? null, ibcPrev?.ibc ?? null, 2);
-    paintTicker('tickerBcv', 'BCV', bcvLast?.bcv ?? null, bcvPrev?.bcv ?? null, 4);
-  }
-
-  function renderTickerFromMonthly(rows) {
-    const last = rows[rows.length - 1], prev = rows[rows.length - 2];
-    paintTicker('tickerIbc', 'IBC', last?.ibc ?? null, prev?.ibc ?? null, 2);
-    paintTicker('tickerBcv', 'BCV', last?.bcv ?? null, prev?.bcv ?? null, 4);
-  }
-
-  function animateNumber(el, to, duration = 900) {
-    const suffix = '%';
-    if (to === null || to === undefined) { el.textContent = '—'; return; }
-    if (prefersReducedMotion()) { el.textContent = fmtPct(to); return; }
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const val = to * eased;
-      el.textContent = fmtPct(val);
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  function calcularBeneficioReal(ibcPct, bcvPct) {
-    if (ibcPct === null || ibcPct === undefined || bcvPct === null || bcvPct === undefined) return null;
-    return (((1 + ibcPct / 100) / (1 + bcvPct / 100)) - 1) * 100;
-  }
-
-  function renderHero(last) {
-    const headline = $('heroHeadline');
-    const sub = $('heroSub');
-    if (!last || last.ibcPct === null || last.bcvPct === null) {
-      headline.textContent = 'Aún no hay suficientes meses para comparar.';
-      sub.textContent = '';
-      return;
-    }
-    headline.innerHTML = `IBC <span class="num-ibc" id="heroIbcNum">0%</span> — BCV <span class="num-bcv" id="heroBcvNum">0%</span> este mes`;
-    animateNumber($('heroIbcNum'), last.ibcPct);
-    animateNumber($('heroBcvNum'), last.bcvPct);
-    const beneficioReal = calcularBeneficioReal(last.ibcPct, last.bcvPct);
-    sub.textContent = beneficioReal >= 0
-      ? `El IBC superó la devaluación del bolívar por un beneficio real de ${beneficioReal.toFixed(2)}% este mes.`
-      : `La devaluación del bolívar superó al IBC por un beneficio real de ${Math.abs(beneficioReal).toFixed(2)}% este mes.`;
-  }
-
-  function pintarBeneficio(id, valor) {
-    const el = $(id);
-    if (valor === null || valor === undefined) {
-      el.textContent = '—';
-      el.style.color = 'var(--muted)';
-      return;
-    }
-    el.textContent = fmtPct(valor);
-    el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)';
-  }
-
-  function calcularAcumuladoEnIndice(conDatos, indiceHasta, horizonteMeses) {
-    const hasta = conDatos[indiceHasta];
-    let inicio;
-    if (horizonteMeses === null) {
-      inicio = conDatos[0];
-    } else {
-      const claveObjetivo = addMonthsToKey(hasta.mes, -horizonteMeses);
-      inicio = conDatos.find((r) => r.mes === claveObjetivo);
-      if (!inicio) return null;
-    }
-    if (inicio === hasta) return { valor: 0, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial };
-    const crecIbc = hasta.ibc / inicio.ibc;
-    const crecBcv = hasta.bcv / inicio.bcv;
-    return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial };
-  }
-
-  function calcularBeneficioAcumuladoHorizonte(monthlyRows, horizonteMeses) {
-    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
-    if (conDatos.length < 2) return null;
-    return calcularAcumuladoEnIndice(conDatos, conDatos.length - 1, horizonteMeses);
-  }
-
-  function renderBeneficioAcumulado(monthlyRows, horizonte) {
-    const horizonteMeses = horizonte === 'todo' ? null : Number(horizonte);
-    const resultado = calcularBeneficioAcumuladoHorizonte(monthlyRows, horizonteMeses);
-    pintarBeneficio('beneficioAnual', resultado ? resultado.valor : null);
-    const nota = $('beneficioAnualNota');
-    if (resultado) {
-      const desde = monthLabel(resultado.desde);
-      const hasta = monthLabel(resultado.hasta) + (resultado.esParcial ? '*' : '');
-      nota.textContent = horizonteMeses === null
-        ? `Desde ${desde}`
-        : `Últimos ${horizonteMeses} meses (${desde} a ${hasta})`;
-      nota.style.display = 'block';
-    } else {
-      const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
-      const primerMes = conDatos[0]?.mes;
-      const disponibleDesde = primerMes ? monthLabel(addMonthsToKey(primerMes, horizonteMeses)) : null;
-      nota.textContent = disponibleDesde
-        ? `${horizonteMeses} meses requiere más historia — disponible a partir de ${disponibleDesde}`
-        : 'Historia insuficiente';
-      nota.style.display = 'block';
-    }
-  }
-
-  function renderBeneficioCards(ultimoMensual, monthlyRows) {
-    const beneficioMensual = calcularBeneficioReal(ultimoMensual?.ibcPct, ultimoMensual?.bcvPct);
-    pintarBeneficio('beneficioMensual', beneficioMensual);
-    renderBeneficioAcumulado(monthlyRows, estado.horizonte);
-  }
-
-  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonte: '12', horizonteTabla: '12', monthlyRows: null, carouselTab: 'indice' };
-
-  function construirHistoricoBeneficioReal(monthlyRows) {
-    const historico = [];
-    for (let i = 1; i < monthlyRows.length; i++) {
-      const actual = monthlyRows[i];
-      const anterior = monthlyRows[i - 1];
-      if (actual.ibcPct === null || actual.bcvPct === null) continue;
-      historico.push({
-        fecha: actual.mes,
-        etiqueta: monthLabel(actual.mes) + (actual.esParcial ? '*' : ''),
-        ibcInicio: anterior.ibc,
-        ibcFin: actual.ibc,
-        bcvInicio: anterior.bcv,
-        bcvFin: actual.bcv,
-        beneficioReal: calcularBeneficioReal(actual.ibcPct, actual.bcvPct),
-      });
-    }
-    return historico;
-  }
-
-  function renderBeneficioHistorico(monthlyRows) {
-    const historico = construirHistoricoBeneficioReal(monthlyRows);
-    if (historico.length === 0 || typeof Chart === 'undefined') return;
-    const labels = historico.map((h) => h.etiqueta);
-    const valores = historico.map((h) => Number(h.beneficioReal.toFixed(2)));
-    const styles = getComputedStyle(document.querySelector('.ibc-root'));
-    const cPositive = styles.getPropertyValue('--positive').trim();
-    const cNegative = styles.getPropertyValue('--negative').trim();
-    const cMuted = styles.getPropertyValue('--muted').trim();
-    const cLine = styles.getPropertyValue('--line').trim();
-    const cPaper = styles.getPropertyValue('--paper').trim();
-    if (carouselChart) carouselChart.destroy();
-    carouselChart = new Chart($('carouselChart'), {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Beneficio real',
-          data: valores,
-          borderColor: cPositive,
-          backgroundColor: cPositive + '15',
-          pointBackgroundColor: valores.map((v) => (v >= 0 ? cPositive : cNegative)),
-          pointBorderColor: '#0e1420',
-          pointBorderWidth: 2,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          tension: 0.15,
-          fill: true,
-          spanGaps: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: prefersReducedMotion() ? false : undefined,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1,
-            titleColor: cPaper, bodyColor: cPaper,
-            callbacks: { label: (ctx) => 'Beneficio real: ' + fmtPct(ctx.parsed.y) }
-          }
-        },
-        scales: {
-          y: { grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } },
-          x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }
-        }
-      }
-    });
-  }
-
-  function construirIndiceValorReal(monthlyRows) {
-    const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null);
-    if (conDatos.length === 0) return [];
-    const base = conDatos[0];
-    return conDatos.map((r) => ({
-      mes: r.mes,
-      etiqueta: monthLabel(r.mes) + (r.esParcial ? '*' : ''),
-      indice: (r.ibc / base.ibc) / (r.bcv / base.bcv) * 100
-    }));
-  }
-
-  function renderIndiceValorReal(monthlyRows) {
-    const serie = construirIndiceValorReal(monthlyRows);
-    if (serie.length === 0 || typeof Chart === 'undefined') return;
-    const labels = serie.map((s) => s.etiqueta);
-    const valores = serie.map((s) => Number(s.indice.toFixed(2)));
-    const styles = getComputedStyle(document.querySelector('.ibc-root'));
-    const cPositive = styles.getPropertyValue('--positive').trim();
-    const cMuted = styles.getPropertyValue('--muted').trim();
-    const cLine = styles.getPropertyValue('--line').trim();
-    const cPaper = styles.getPropertyValue('--paper').trim();
-    if (carouselChart) carouselChart.destroy();
-    carouselChart = new Chart($('carouselChart'), {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Índice de valor real',
-            data: valores,
-            borderColor: cPositive,
-            backgroundColor: cPositive + '15',
-            pointRadius: labels.length > 40 ? 0 : 3,
-            pointBackgroundColor: cPositive,
-            pointBorderColor: '#0e1420',
-            pointBorderWidth: 2,
-            tension: 0.15,
-            fill: true,
-            spanGaps: true
-          },
-          {
-            label: 'Base (100)',
-            data: valores.map(() => 100),
-            borderColor: cMuted,
-            borderDash: [4, 4],
-            pointRadius: 0,
-            borderWidth: 1,
-            fill: false
-          },
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: prefersReducedMotion() ? false : undefined,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#1a2333',
-            borderColor: cLine,
-            borderWidth: 1,
-            titleColor: cPaper,
-            bodyColor: cPaper,
-            callbacks: {
-              label: (ctx) => ctx.datasetIndex === 0 ? 'Índice: ' + ctx.parsed.y.toFixed(2) : null
-            }
-          }
-        },
-        scales: {
-          y: { grid: { color: cLine }, ticks: { color: cMuted } },
-          x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }
-        }
-      }
-    });
-  }
-
-  const DESCRIPCIONES_CARRUSEL = {
-    indice: 'Si tu inversión en el IBC hubiera partido de una base de 100 en el primer mes de nuestros datos, ¿cuánto valdría hoy, ya descontando la devaluación del bolívar? Por encima de 100 significa que el mercado protegió y ganó valor real; por debajo, que lo perdió.',
-    beneficio: '¿En qué meses el mercado bursátil venezolano ganó o perdió valor real frente a la devaluación del bolívar? Cada punto usa la misma fórmula que la tarjeta "Beneficio real mensual" de arriba — es informativo, no una señal de compra o venta.'
-  };
-
-  function renderCarouselTab(tab, monthlyRows) {
-    $('carouselDesc').textContent = DESCRIPCIONES_CARRUSEL[tab];
-    document.querySelectorAll('.ibc-carousel-tab').forEach((b) => {
-      const activo = b.dataset.tab === tab;
-      b.classList.toggle('active', activo);
-      b.setAttribute('aria-selected', activo ? 'true' : 'false');
-    });
-    if (tab === 'indice') renderIndiceValorReal(monthlyRows); else renderBeneficioHistorico(monthlyRows);
-  }
-
-  document.querySelectorAll('.ibc-carousel-tab').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      estado.carouselTab = btn.dataset.tab;
-      if (estado.monthlyRows) renderCarouselTab(estado.carouselTab, estado.monthlyRows);
-    });
-  });
-
-  function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) {
-    if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation);
-    estado.monthlyRows = monthlyRowsWithVariation;
-    const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1];
-    renderHero(ultimoMensual);
-    renderBeneficioCards(ultimoMensual, monthlyRowsWithVariation);
-    renderCarouselTab(estado.carouselTab, monthlyRowsWithVariation);
-  }
-
-  function renderChartAndTable(granularidad) {
-    const cfg = PERIODOS[granularidad];
-    const filas = withVariationGeneric(aggregateByPeriod(estado.cierresDiarios, granularidad), cfg.esActual, cfg.lookback || 1).slice(-cfg.cap);
-
-    const sinDatosSuficientes = (cfg.lookback || 1) > 1 && filas.every((r) => r.ibcPct === null && r.bcvPct === null);
-    const nota = $('periodEmptyMsg');
-    if (sinDatosSuficientes && filas.length > 0) {
-      const disponibleDesde = cfg.periodLabel(addMonthsToKey(filas[0].periodo, cfg.lookback));
-      nota.textContent = `TTM necesita al menos 12 meses de historia para calcular la variación interanual — con lo que tenemos hoy, estará disponible a partir de ${disponibleDesde}. Mientras tanto se muestran los cierres del mes sin variación.`;
-      nota.style.display = 'block';
-    } else {
-      nota.style.display = 'none';
-    }
-
-    // El filtro de rango ("Año actual") se aplica solo a lo que se muestra —
-    // el cálculo de variación (arriba) siempre usa el histórico completo,
-    // así que TTM en enero-2026 sigue comparando contra 2025 aunque el
-    // rango visible esté acotado a 2026.
-    const anioActual = String(new Date().getFullYear());
-    let rows = estado.rango === 'anio' ? filas.filter((r) => r.periodo.startsWith(anioActual)) : filas;
-
-    const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null);
-
-    rows = rows.slice(-Number(estado.horizonteTabla));
-
-    $('colPeriodo').textContent = cfg.columnLabel;
-
-    const celdaAcum = (resultado) => {
-      const v = resultado ? resultado.valor : null;
-      return `<td class="num" style="color: ${v === null || v === undefined ? 'var(--muted)' : (v >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(v)}</td>`;
-    };
-    const tbody = $('dataTable');
-    tbody.innerHTML = rows.map((r) => {
-      const beneficioReal = calcularBeneficioReal(r.ibcPct, r.bcvPct);
-      const mesFila = r.periodo.slice(0, 7);
-      const idxMes = conDatosMensual.findIndex((m) => m.mes === mesFila);
-      const acumTotal = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, null) : null;
-      return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : ''}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : ''}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${beneficioReal === null ? 'var(--muted)' : (beneficioReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(beneficioReal)}</td>${celdaAcum(acumTotal)}</tr>`;
-    }).join('');
-
-    const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : ''));
-    const ibcData = rows.map((r) => (r.ibcPct !== null ? Number(r.ibcPct.toFixed(2)) : null));
-    const bcvData = rows.map((r) => (r.bcvPct !== null ? Number(r.bcvPct.toFixed(2)) : null));
-
-    if (typeof Chart === 'undefined') {
-      // El CDN de Chart.js no cargó (por ejemplo, un visor que bloquea scripts externos).
-      // El resto de la página (ticker, titular, tabla) ya se renderizó igual — solo se
-      // omite el gráfico en vez de romper todo con un error sin capturar.
-      console.warn('Chart.js no está disponible; se omite el gráfico.');
-      return;
-    }
-
-    if (chart) chart.destroy();
-    const styles = getComputedStyle(document.querySelector('.ibc-root'));
-    const cIbc = styles.getPropertyValue('--ibc').trim();
-    const cBcv = styles.getPropertyValue('--bcv').trim();
-    const cMuted = styles.getPropertyValue('--muted').trim();
-    const cLine = styles.getPropertyValue('--line').trim();
-    const cPaper = styles.getPropertyValue('--paper').trim();
-
-    chart = new Chart($('mainChart'), {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          { label: 'IBC', data: ibcData, borderColor: cIbc, backgroundColor: cIbc + '22', pointRadius: labels.length > 40 ? 0 : 4, pointBackgroundColor: cIbc, pointBorderColor: '#0e1420', pointBorderWidth: 2, tension: 0.15, spanGaps: true },
-          { label: 'Tasa BCV', data: bcvData, borderColor: cBcv, backgroundColor: cBcv + '22', borderDash: [6, 3], pointStyle: 'rectRot', pointRadius: labels.length > 40 ? 0 : 4, pointBackgroundColor: cBcv, pointBorderColor: '#0e1420', pointBorderWidth: 2, tension: 0.15, spanGaps: true },
-        ],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        animation: prefersReducedMotion() ? false : undefined,
-        plugins: {
-          title: { display: true, text: 'IBC vs. Tasa BCV — variación por período', color: cPaper, font: { size: 14, weight: '600' }, padding: { bottom: 12 } },
-          legend: { display: false },
-          tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper }
-        },
-        scales: {
-          y: { title: { display: true, text: `Variación ${cfg.varLabel} (%)`, color: cMuted }, grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } },
-          x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } },
-        },
-      },
-    });
-  }
-
-  function setPeriodButtonsState() {
-    document.querySelectorAll('.ibc-period-btn').forEach((btn) => {
-      btn.classList.toggle('active', btn.dataset.periodo === estado.granularidad);
-    });
-  }
-
-  document.querySelectorAll('.ibc-period-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      estado.granularidad = btn.dataset.periodo;
-      setPeriodButtonsState();
-      renderChartAndTable(estado.granularidad);
-    });
-  });
-
-  // El botón de rango muestra el año en curso (calculado, no hardcodeado —
-  // en enero seguirá diciendo el año correcto sin tocar el código).
+  const PERIODOS = { semanal: { cap: Infinity, columnLabel: 'Semana', varLabel: 'semanal', lookback: 1, bucketKey: (fecha) => mondayOfWeek(fecha), periodLabel: (key) => ddmm(key), esActual: (key) => key === mondayOfWeek(HOY_ISO), }, mensual: { cap: Infinity, columnLabel: 'Mes', varLabel: 'mensual', lookback: 1, bucketKey: (fecha) => fecha.slice(0, 7), periodLabel: (key) => monthLabel(key), esActual: (key) => esMesActual(key), }, };
+  function addMonthsToKey(mesKey, n) { const [y, m] = mesKey.split('-').map(Number); const total = y * 12 + (m - 1) + n; const ny = Math.floor(total / 12); const nm = (total % 12) + 1; return `${ny}-${String(nm).padStart(2, '0')}`; }
+  function aggregateByPeriod(cierres, granularidad) { const keyFn = PERIODOS[granularidad].bucketKey; const ibcByKey = {}, bcvByKey = {}; cierres.forEach((c) => { const key = keyFn(c.fecha); if (c.ibc !== null && c.ibc !== undefined) { if (!ibcByKey[key] || c.fecha > ibcByKey[key].fecha) ibcByKey[key] = { fecha: c.fecha, valor: c.ibc }; } if (c.bcv !== null && c.bcv !== undefined) { if (!bcvByKey[key] || c.fecha > bcvByKey[key].fecha) bcvByKey[key] = { fecha: c.fecha, valor: c.bcv }; } }); const keys = [...new Set([...Object.keys(ibcByKey), ...Object.keys(bcvByKey)])].sort(); return keys.map((periodo) => ({ periodo, ibc: ibcByKey[periodo]?.valor ?? null, bcv: bcvByKey[periodo]?.valor ?? null, })); }
+  function withVariationGeneric(rows, esActualFn, lookback = 1) { const histIbc = [], histBcv = []; return rows.map((r) => { const prevIbc = histIbc.length >= lookback ? histIbc[histIbc.length - lookback] : null; const prevBcv = histBcv.length >= lookback ? histBcv[histBcv.length - lookback] : null; const ibcPct = prevIbc !== null && r.ibc !== null ? ((r.ibc - prevIbc) / prevIbc) * 100 : null; const bcvPct = prevBcv !== null && r.bcv !== null ? ((r.bcv - prevBcv) / prevBcv) * 100 : null; if (r.ibc !== null && r.ibc !== undefined) histIbc.push(r.ibc); if (r.bcv !== null && r.bcv !== undefined) histBcv.push(r.bcv); return { ...r, esParcial: esActualFn(r.periodo), ibcPct, bcvPct }; }); }
+  function monthlyFromDaily(cierres) { const ibcByMonth = {}, bcvByMonth = {}; cierres.forEach((c) => { const mes = c.fecha.slice(0, 7); if (c.ibc !== null && c.ibc !== undefined) { if (!ibcByMonth[mes] || c.fecha > ibcByMonth[mes].fecha) ibcByMonth[mes] = { fecha: c.fecha, valor: c.ibc }; } if (c.bcv !== null && c.bcv !== undefined) { if (!bcvByMonth[mes] || c.fecha > bcvByMonth[mes].fecha) bcvByMonth[mes] = { fecha: c.fecha, valor: c.bcv }; } }); const meses = [...new Set([...Object.keys(ibcByMonth), ...Object.keys(bcvByMonth)])].sort(); return meses.map((mes) => ({ mes, ibc: ibcByMonth[mes]?.valor ?? null, bcv: bcvByMonth[mes]?.valor ?? null, })); }
+  function withVariation(rows) { return rows.map((r, i) => { const prev = i > 0 ? rows[i - 1] : null; return { ...r, esParcial: esMesActual(r.mes), ibcPct: prev && prev.ibc && r.ibc !== null ? ((r.ibc - prev.ibc) / prev.ibc) * 100 : null, bcvPct: prev && prev.bcv && r.bcv !== null ? ((r.bcv - prev.bcv) / prev.bcv) * 100 : null, }; }); }
+  function tickerArrow(actual, anterior) { if (anterior === null || anterior === undefined || actual === anterior) return { symbol: '▬', color: 'var(--muted)' }; return actual > anterior ? { symbol: '▲', color: 'var(--positive)' } : { symbol: '▼', color: 'var(--negative)' }; }
+  function paintTicker(elId, label, valor, anterior, decimals) { const el = $(elId); if (valor === null || valor === undefined) { el.innerHTML = `<span class="tk-label">${label}</span><span class="tk-val">—</span>`; return; } const { symbol, color } = tickerArrow(valor, anterior); el.innerHTML = `<span class="tk-label">${label}</span><span class="tk-arrow" style="color:${color}">${symbol}</span><span class="tk-val">${valor.toLocaleString('es-VE', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}</span>`; }
+  function renderTickerFromDaily(cierres) { const ibcSerie = cierres.filter((c) => c.ibc !== null && c.ibc !== undefined); const bcvSerie = cierres.filter((c) => c.bcv !== null && c.bcv !== undefined); const ibcLast = ibcSerie[ibcSerie.length - 1], ibcPrev = ibcSerie[ibcSerie.length - 2]; const bcvLast = bcvSerie[bcvSerie.length - 1], bcvPrev = bcvSerie[bcvSerie.length - 2]; paintTicker('tickerIbc', 'IBC', ibcLast?.ibc ?? null, ibcPrev?.ibc ?? null, 2); paintTicker('tickerBcv', 'BCV', bcvLast?.bcv ?? null, bcvPrev?.bcv ?? null, 4); }
+  function renderTickerFromMonthly(rows) { const last = rows[rows.length - 1], prev = rows[rows.length - 2]; paintTicker('tickerIbc', 'IBC', last?.ibc ?? null, prev?.ibc ?? null, 2); paintTicker('tickerBcv', 'BCV', last?.bcv ?? null, prev?.bcv ?? null, 4); }
+  function animateNumber(el, to, duration = 900) { if (to === null || to === undefined) { el.textContent = '—'; return; } if (prefersReducedMotion()) { el.textContent = fmtPct(to); return; } const start = performance.now(); function tick(now) { const t = Math.min(1, (now - start) / duration); const eased = 1 - Math.pow(1 - t, 3); const val = to * eased; el.textContent = fmtPct(val); if (t < 1) requestAnimationFrame(tick); } requestAnimationFrame(tick); }
+  function calcularValorReal(ibcPct, bcvPct) { if (ibcPct === null || ibcPct === undefined || bcvPct === null || bcvPct === undefined) return null; return (((1 + ibcPct / 100) / (1 + bcvPct / 100)) - 1) * 100; }
+  function renderHero(last) { const headline = $('heroHeadline'); const sub = $('heroSub'); if (!last || last.ibcPct === null || last.bcvPct === null) { headline.textContent = 'Aún no hay suficientes meses para comparar.'; sub.textContent = ''; return; } headline.innerHTML = `IBC <span class="num-ibc" id="heroIbcNum">0%</span> — BCV <span class="num-bcv" id="heroBcvNum">0%</span> este mes`; animateNumber($('heroIbcNum'), last.ibcPct); animateNumber($('heroBcvNum'), last.bcvPct); const valorReal = calcularValorReal(last.ibcPct, last.bcvPct); sub.textContent = valorReal >= 0 ? `El IBC superó la devaluación del bolívar por un beneficio real de ${valorReal.toFixed(2)}% este mes.` : `La devaluación del bolívar superó al IBC por una pérdida real de ${Math.abs(valorReal).toFixed(2)}% este mes.`; }
+  function pintarValorReal(id, valor) { const el = $(id); if (valor === null || valor === undefined) { el.textContent = '—'; el.style.color = 'var(--muted)'; return; } el.textContent = fmtPct(valor); el.style.color = valor >= 0 ? 'var(--positive)' : 'var(--negative)'; }
+  function calcularAcumuladoEnIndice(conDatos, indiceHasta, horizonteMeses) { const hasta = conDatos[indiceHasta]; let inicio; if (horizonteMeses === null) { inicio = conDatos[0]; } else { const claveObjetivo = addMonthsToKey(hasta.mes, -horizonteMeses); inicio = conDatos.find((r) => r.mes === claveObjetivo); if (!inicio) return null; } if (inicio === hasta) return { valor: 0, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial }; const crecIbc = hasta.ibc / inicio.ibc; const crecBcv = hasta.bcv / inicio.bcv; return { valor: (crecIbc / crecBcv - 1) * 100, desde: inicio.mes, hasta: hasta.mes, esParcial: hasta.esParcial }; }
+  function calcularValorRealAcumuladoHorizonte(monthlyRows, horizonteMeses) { const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null); if (conDatos.length < 2) return null; return calcularAcumuladoEnIndice(conDatos, conDatos.length - 1, horizonteMeses); }
+  function pintarCardAcumulada(monthlyRows) { const resultado = calcularValorRealAcumuladoHorizonte(monthlyRows, null); pintarValorReal('valorRealAcumuladoCard', resultado ? resultado.valor : null); const nota = $('valorRealAcumuladoCardNota'); if (resultado) { nota.textContent = `Desde ${monthLabel(resultado.desde)}`; nota.style.display = 'block'; } else { nota.style.display = 'none'; } }
+  function renderHeroAcumulado(monthlyRows, horizonteMeses) { const resultado = calcularValorRealAcumuladoHorizonte(monthlyRows, horizonteMeses); const el = $('valorRealAcumuladoHero'); const status = $('valorRealAcumuladoHeroStatus'); const caption = $('valorRealAcumuladoHeroCaption'); if (!resultado) { el.textContent = '—'; el.style.color = 'var(--muted)'; status.textContent = ''; const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null); const primerMes = conDatos[0]?.mes; const disponibleDesde = primerMes ? monthLabel(addMonthsToKey(primerMes, horizonteMeses)) : null; caption.textContent = disponibleDesde ? `${horizonteMeses} meses requiere más historia — disponible a partir de ${disponibleDesde}` : 'Historia insuficiente'; return; } const rising = resultado.valor >= 0; el.textContent = fmtPct(resultado.valor); el.style.color = rising ? 'var(--positive)' : 'var(--negative)'; status.innerHTML = rising ? `<b style="color: var(--positive);">Beneficio Real</b> frente a la devaluación del bolívar` : `<b style="color: var(--negative);">Pérdida Real</b> frente a la devaluación del bolívar`; const desde = monthLabel(resultado.desde); const hasta = monthLabel(resultado.hasta) + (resultado.esParcial ? '*' : ''); caption.textContent = `Mostrando los últimos ${horizonteMeses} meses (${desde} a ${hasta})`; }
+  function renderValorRealCards(ultimoMensual, monthlyRows) { const valorRealMensual = calcularValorReal(ultimoMensual?.ibcPct, ultimoMensual?.bcvPct); pintarValorReal('valorRealMensual', valorRealMensual); pintarCardAcumulada(monthlyRows); renderHeroAcumulado(monthlyRows, estado.horizonteHero); }
+  const estado = { cierresDiarios: null, granularidad: 'mensual', rango: 'todo', horizonteHero: 12, horizonteTabla: '12', monthlyRows: null };
+  function construirValorRealAcumuladoSerie(monthlyRows) { const conDatos = monthlyRows.filter((r) => r.ibc !== null && r.bcv !== null); if (conDatos.length === 0) return []; const base = conDatos[0]; return conDatos.map((r) => ({ mes: r.mes, etiqueta: monthLabel(r.mes) + (r.esParcial ? '*' : ''), valor: ((r.ibc / base.ibc) / (r.bcv / base.bcv) - 1) * 100 })); }
+  function renderAcumuladoChart(monthlyRows) { const serie = construirValorRealAcumuladoSerie(monthlyRows); if (serie.length === 0 || typeof Chart === 'undefined') return; const labels = serie.map((s) => s.etiqueta); const valores = serie.map((s) => Number(s.valor.toFixed(2))); const styles = getComputedStyle(document.querySelector('.ibc-root')); const cPositive = styles.getPropertyValue('--positive').trim(); const cMuted = styles.getPropertyValue('--muted').trim(); const cLine = styles.getPropertyValue('--line').trim(); const cPaper = styles.getPropertyValue('--paper').trim(); if (acumuladoChart) acumuladoChart.destroy(); acumuladoChart = new Chart($('acumuladoChart'), { type: 'line', data: { labels, datasets: [ { data: valores, borderColor: cPositive, backgroundColor: cPositive + '15', pointRadius: labels.length > 40 ? 0 : 3, pointBackgroundColor: cPositive, pointBorderColor: '#0e1420', pointBorderWidth: 2, tension: 0.15, fill: true, spanGaps: true }, { data: valores.map(() => 0), borderColor: cMuted, borderDash: [4, 4], borderWidth: 1, pointRadius: 0, fill: false }, ] }, options: { responsive: true, maintainAspectRatio: false, animation: prefersReducedMotion() ? false : undefined, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper, filter: (item) => item.datasetIndex === 0, callbacks: { label: (ctx) => 'Valor real acumulado: ' + fmtPct(ctx.parsed.y) } } }, scales: { y: { grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } }, x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } } } } }); }
+  function construirValorRealMensualSerie(monthlyRows) { const historico = []; for (let i = 1; i < monthlyRows.length; i++) { const actual = monthlyRows[i]; if (actual.ibcPct === null || actual.bcvPct === null) continue; historico.push({ etiqueta: monthLabel(actual.mes) + (actual.esParcial ? '*' : ''), valor: calcularValorReal(actual.ibcPct, actual.bcvPct) }); } return historico; }
+  function renderDetalleChart(monthlyRows) { const historico = construirValorRealMensualSerie(monthlyRows); if (historico.length === 0 || typeof Chart === 'undefined') return; const labels = historico.map((h) => h.etiqueta); const valores = historico.map((h) => Number(h.valor.toFixed(2))); const styles = getComputedStyle(document.querySelector('.ibc-root')); const cPositive = styles.getPropertyValue('--positive').trim(); const cNegative = styles.getPropertyValue('--negative').trim(); const cMuted = styles.getPropertyValue('--muted').trim(); const cLine = styles.getPropertyValue('--line').trim(); const cPaper = styles.getPropertyValue('--paper').trim(); if (detalleChart) detalleChart.destroy(); detalleChart = new Chart($('detalleChart'), { type: 'bar', data: { labels, datasets: [{ data: valores, backgroundColor: valores.map((v) => (v >= 0 ? cPositive : cNegative)), borderRadius: 3, maxBarThickness: 34 }] }, options: { responsive: true, maintainAspectRatio: false, animation: prefersReducedMotion() ? false : undefined, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper, callbacks: { label: (ctx) => 'Valor real del mes: ' + fmtPct(ctx.parsed.y) } } }, scales: { y: { grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } }, x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } } } } }); }
+  document.querySelectorAll('.ibc-horizon-btn[data-horizonte-hero]').forEach((btn) => { btn.addEventListener('click', () => { estado.horizonteHero = Number(btn.dataset.horizonteHero); document.querySelectorAll('.ibc-horizon-btn[data-horizonte-hero]').forEach((b) => b.classList.toggle('active', b === btn)); if (estado.monthlyRows) renderHeroAcumulado(estado.monthlyRows, estado.horizonteHero); }); });
+  function renderTickerAndHero(rawCierres, monthlyRowsWithVariation) { if (rawCierres) renderTickerFromDaily(rawCierres); else renderTickerFromMonthly(monthlyRowsWithVariation); estado.monthlyRows = monthlyRowsWithVariation; const ultimoMensual = monthlyRowsWithVariation[monthlyRowsWithVariation.length - 1]; renderHero(ultimoMensual); renderValorRealCards(ultimoMensual, monthlyRowsWithVariation); renderAcumuladoChart(monthlyRowsWithVariation); renderDetalleChart(monthlyRowsWithVariation); }
+  function renderChartAndTable(granularidad) { const cfg = PERIODOS[granularidad]; const filas = withVariationGeneric(aggregateByPeriod(estado.cierresDiarios, granularidad), cfg.esActual, cfg.lookback || 1).slice(-cfg.cap); const sinDatosSuficientes = (cfg.lookback || 1) > 1 && filas.every((r) => r.ibcPct === null && r.bcvPct === null); const nota = $('periodEmptyMsg'); if (sinDatosSuficientes && filas.length > 0) { const disponibleDesde = cfg.periodLabel(addMonthsToKey(filas[0].periodo, cfg.lookback)); nota.textContent = `TTM necesita al menos 12 meses de historia para calcular la variación interanual — con lo que tenemos hoy, estará disponible a partir de ${disponibleDesde}. Mientras tanto se muestran los cierres del mes sin variación.`; nota.style.display = 'block'; } else { nota.style.display = 'none'; } const anioActual = String(new Date().getFullYear()); let rows = estado.rango === 'anio' ? filas.filter((r) => r.periodo.startsWith(anioActual)) : filas; const conDatosMensual = (estado.monthlyRows || []).filter((m) => m.ibc !== null && m.bcv !== null); rows = rows.slice(-Number(estado.horizonteTabla)); $('colPeriodo').textContent = cfg.columnLabel; const celdaAcum = (resultado) => { const v = resultado ? resultado.valor : null; return `<td class="num" style="color: ${v === null || v === undefined ? 'var(--muted)' : (v >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(v)}</td>`; }; const tbody = $('dataTable'); tbody.innerHTML = rows.map((r) => { const valorReal = calcularValorReal(r.ibcPct, r.bcvPct); const mesFila = r.periodo.slice(0, 7); const idxMes = conDatosMensual.findIndex((m) => m.mes === mesFila); const acumTotal = idxMes >= 0 ? calcularAcumuladoEnIndice(conDatosMensual, idxMes, null) : null; return `<tr><td>${cfg.periodLabel(r.periodo)}${r.esParcial ? '*' : ''}</td><td class="num">${r.ibc !== null ? r.ibc.toLocaleString('es-VE', { maximumFractionDigits: 2 }) : '—'}</td><td class="num" style="color: ${r.ibcPct === null ? 'var(--muted)' : (r.ibcPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.ibcPct)}</td><td class="num">${r.bcv !== null ? r.bcv.toLocaleString('es-VE', { maximumFractionDigits: 4 }) : '—'}</td><td class="num" style="color: ${r.bcvPct === null ? 'var(--muted)' : (r.bcvPct >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(r.bcvPct)}</td><td class="num" style="color: ${valorReal === null ? 'var(--muted)' : (valorReal >= 0 ? 'var(--positive)' : 'var(--negative)')};">${fmtPct(valorReal)}</td>${celdaAcum(acumTotal)}</tr>`; }).join(''); const labels = rows.map((r) => cfg.periodLabel(r.periodo) + (r.esParcial ? '*' : '')); const ibcData = rows.map((r) => (r.ibcPct !== null ? Number(r.ibcPct.toFixed(2)) : null)); const bcvData = rows.map((r) => (r.bcvPct !== null ? Number(r.bcvPct.toFixed(2)) : null)); if (typeof Chart === 'undefined') { console.warn('Chart.js no está disponible; se omite el gráfico.'); return; } if (chart) chart.destroy(); const styles = getComputedStyle(document.querySelector('.ibc-root')); const cIbc = styles.getPropertyValue('--ibc').trim(); const cBcv = styles.getPropertyValue('--bcv').trim(); const cMuted = styles.getPropertyValue('--muted').trim(); const cLine = styles.getPropertyValue('--line').trim(); const cPaper = styles.getPropertyValue('--paper').trim(); chart = new Chart($('mainChart'), { type: 'line', data: { labels, datasets: [ { label: 'IBC', data: ibcData, borderColor: cIbc, backgroundColor: cIbc + '22', pointRadius: labels.length > 40 ? 0 : 4, pointBackgroundColor: cIbc, pointBorderColor: '#0e1420', pointBorderWidth: 2, tension: 0.15, spanGaps: true }, { label: 'Tasa BCV', data: bcvData, borderColor: cBcv, backgroundColor: cBcv + '22', borderDash: [6, 3], pointStyle: 'rectRot', pointRadius: labels.length > 40 ? 0 : 4, pointBackgroundColor: cBcv, pointBorderColor: '#0e1420', pointBorderWidth: 2, tension: 0.15, spanGaps: true }, ], }, options: { responsive: true, maintainAspectRatio: false, animation: prefersReducedMotion() ? false : undefined, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a2333', borderColor: cLine, borderWidth: 1, titleColor: cPaper, bodyColor: cPaper } }, scales: { y: { title: { display: true, text: `Variación ${cfg.varLabel} (%)`, color: cMuted }, grid: { color: cLine }, ticks: { color: cMuted, callback: (v) => v + '%' } }, x: { grid: { display: false }, ticks: { color: cMuted, font: { family: "'IBM Plex Mono', monospace" }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } }, }, }, }); }
+  function setPeriodButtonsState() { document.querySelectorAll('.ibc-period-btn').forEach((btn) => { btn.classList.toggle('active', btn.dataset.periodo === estado.granularidad); }); }
+  document.querySelectorAll('.ibc-period-btn').forEach((btn) => { btn.addEventListener('click', () => { estado.granularidad = btn.dataset.periodo; setPeriodButtonsState(); renderChartAndTable(estado.granularidad); }); });
   $('rangoAnioBtn').textContent = String(new Date().getFullYear());
-
-  document.querySelectorAll('.ibc-range-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      estado.rango = btn.dataset.rango;
-      document.querySelectorAll('.ibc-range-btn').forEach((b) => b.classList.toggle('active', b === btn));
-      renderChartAndTable(estado.granularidad);
-    });
-  });
-
-  document.querySelectorAll('.ibc-horizon-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      estado.horizonte = btn.dataset.horizonte;
-      document.querySelectorAll('.ibc-horizon-btn').forEach((b) => b.classList.toggle('active', b === btn));
-      if (estado.monthlyRows) renderBeneficioAcumulado(estado.monthlyRows, estado.horizonte);
-    });
-  });
-
-  document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      estado.horizonteTabla = btn.dataset.horizonteTabla;
-      document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((b) => b.classList.toggle('active', b === btn));
-      renderChartAndTable(estado.granularidad);
-    });
-  });
-
-  function showOffline(motivo) {
-    const banner = $('offlineBanner');
-    banner.textContent = `Mostrando el último dato guardado — no se pudo conectar en vivo (${motivo}). Prueba "Actualizar" o abre este archivo en un navegador normal.`;
-    banner.style.display = 'block';
-  }
+  document.querySelectorAll('.ibc-range-btn').forEach((btn) => { btn.addEventListener('click', () => { estado.rango = btn.dataset.rango; document.querySelectorAll('.ibc-range-btn').forEach((b) => b.classList.toggle('active', b === btn)); renderChartAndTable(estado.granularidad); }); });
+  document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((btn) => { btn.addEventListener('click', () => { estado.horizonteTabla = btn.dataset.horizonteTabla; document.querySelectorAll('.ibc-horizon-btn-tabla').forEach((b) => b.classList.toggle('active', b === btn)); renderChartAndTable(estado.granularidad); }); });
+  function showOffline(motivo) { const banner = $('offlineBanner'); banner.textContent = `Mostrando el último dato guardado — no se pudo conectar en vivo (${motivo}). Prueba "Actualizar" o abre este archivo en un navegador normal.`; banner.style.display = 'block'; }
   function hideOffline() { $('offlineBanner').style.display = 'none'; }
-
-  // Camino único para pintar la página, ya sea con datos frescos del fetch o
-  // con el respaldo diario embebido — misma función, mismas temporalidades
-  // disponibles, la única diferencia es qué tan reciente es el dato.
-  function usarDatos(cierres, actualizadoEn) {
-    estado.cierresDiarios = cierres;
-    const monthlyRows = withVariation(monthlyFromDaily(cierres));
-    $('lastUpdated').textContent = actualizadoEn ? `Datos actualizados: ${fmtFecha(actualizadoEn)}` : 'Fecha de actualización no disponible';
-    renderTickerAndHero(cierres, monthlyRows);
-    setPeriodButtonsState();
-    renderChartAndTable(estado.granularidad);
-  }
-
-  async function loadData() {
-    try {
-      const res = await fetch(DATA_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const payload = await res.json();
-      const cierres = payload.cierres || [];
-      if (cierres.length === 0) throw new Error('respuesta vacía');
-      hideOffline();
-      usarDatos(cierres, payload.actualizadoEn);
-    } catch (err) {
-      showOffline(err.message || 'error de red');
-      usarDatos(expandirFallbackDiario(), FALLBACK_ACTUALIZADO_EN);
-    }
-  }
-
+  function usarDatos(cierres, actualizadoEn) { estado.cierresDiarios = cierres; const monthlyRows = withVariation(monthlyFromDaily(cierres)); $('lastUpdated').textContent = actualizadoEn ? `Datos actualizados: ${fmtFecha(actualizadoEn)}` : 'Fecha de actualización no disponible'; renderTickerAndHero(cierres, monthlyRows); setPeriodButtonsState(); renderChartAndTable(estado.granularidad); }
+  async function loadData() { try { const res = await fetch(DATA_URL, { cache: 'no-store' }); if (!res.ok) throw new Error(`HTTP ${res.status}`); const payload = await res.json(); const cierres = payload.cierres || []; if (cierres.length === 0) throw new Error('respuesta vacía'); hideOffline(); usarDatos(cierres, payload.actualizadoEn); } catch (err) { showOffline(err.message || 'error de red'); usarDatos(expandirFallbackDiario(), FALLBACK_ACTUALIZADO_EN); } }
   $('refreshBtn')?.addEventListener('click', loadData);
   loadData();
 })();
