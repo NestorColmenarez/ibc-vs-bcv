@@ -1,0 +1,93 @@
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE045THZG7"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TE045THZG7'); </script> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="description" content="Qué mide IBC vs BCV, para quién es esta herramienta, y respuestas a las preguntas más frecuentes sobre la metodología de cálculo."> <title>Metodología y propósito — IBC vs BCV</title> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241624099852028" crossorigin="anonymous"></script> <meta name="google-adsense-account" content="ca-pub-4241624099852028"> <style> html, body { margin: 0; background: #0e1420; } body { padding: 32px 16px; box-sizing: border-box; } .ibc-root { --bg: #0e1420; --surface: #141b29; --surface-2: #1a2333; --paper: #f5f1e8; --muted: #8b92a0; --line: rgba(245, 241, 232, 0.10); --ibc: #4a95e0; --bcv: #e2703a; --positive: #3dbd7d; --negative: #e2586a; --font-display: 'IBM Plex Serif', Georgia, serif; --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif; --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace; max-width: 720px; margin: 0 auto; background: var(--bg); color: var(--paper); font-family: var(--font-body); } .ibc-root * { box-sizing: border-box; } .ibc-root a { color: var(--ibc); } .ibc-body { padding: 28px 24px 8px; } .ibc-backlink { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; margin-bottom: 24px; } .ibc-backlink:hover { color: var(--paper); } .ibc-section { padding: 26px 0; border-bottom: 1px solid var(--line); } .ibc-section:last-of-type { border-bottom: none; } .ibc-page-title { font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; } .ibc-page-lead { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin: 0; max-width: 58ch; } .ibc-h2 { font-family: var(--font-display); font-weight: 500; font-size: 21px; line-height: 1.35; margin: 0 0 14px; } .ibc-prose p { color: var(--paper); font-size: 15px; line-height: 1.7; margin: 0 0 14px; max-width: 62ch; } .ibc-prose p:last-child { margin-bottom: 0; } .ibc-prose strong { color: var(--paper); font-weight: 500; } .ibc-prose code { font-family: var(--font-mono); font-size: 13px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; } .ibc-callout { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--negative); border-radius: 6px; padding: 12px 16px; margin: 0 0 14px; font-size: 13.5px; color: var(--muted); line-height: 1.6; max-width: 62ch; } .ibc-formula { font-family: var(--font-mono); font-size: 13px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin: 0 0 14px; overflow-x: auto; color: var(--paper); white-space: pre-wrap; word-break: break-word; } .ibc-faq-item { border-bottom: 1px solid var(--line); } .ibc-faq-item:last-child { border-bottom: none; } .ibc-faq-item summary { cursor: pointer; list-style: none; padding: 16px 0; font-family: var(--font-display); font-size: 16px; color: var(--paper); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; } .ibc-faq-item summary::-webkit-details-marker { display: none; } .ibc-faq-item summary .chev { font-family: var(--font-body); font-size: 13px; color: var(--muted); flex-shrink: 0; transition: transform 150ms ease; } .ibc-faq-item[open] summary .chev { transform: rotate(90deg); } .ibc-faq-item summary:focus-visible { outline: 2px solid var(--ibc); outline-offset: 2px; } .ibc-faq-body { padding: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.65; max-width: 60ch; } .ibc-faq-body p { margin: 0 0 12px; } .ibc-faq-body p:last-child { margin-bottom: 0; } .ibc-faq-body ul { margin: 0; padding-left: 20px; } .ibc-faq-body li { margin-bottom: 6px; } .ibc-scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; } .ibc-scope-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; } .ibc-scope-card p.label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; } .ibc-scope-card ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--paper); line-height: 1.6; } .ibc-scope-card li { margin-bottom: 4px; } .ibc-disclaimer { font-size: 11px; color: var(--muted); line-height: 1.6; padding: 20px 0 24px; margin: 0; } @media (max-width: 480px) { .ibc-page-title { font-size: 26px; } .ibc-body { padding: 20px 16px 4px; } .ibc-scope-grid { grid-template-columns: 1fr; } } @media (prefers-reduced-motion: reduce) { .ibc-root * { transition: none !important; } } </style> </head> <body> <div class="ibc-root"> <div class="ibc-body">
+<a class="ibc-backlink" href="./"> &larr; Volver a IBC vs BCV</a>
+<div class="ibc-section">
+<p class="ibc-page-title">Metodología y propósito</p>
+<p class="ibc-page-lead">Qué mide esta herramienta, para quién está pensada, y cómo se calcula cada número que ves en la página principal.</p>
+</div>
+<div class="ibc-section ibc-prose">
+<h2 class="ibc-h2">¿Qué es esta herramienta?</h2>
+<p><strong>IBC vs BCV</strong> nació de una pregunta simple: si tienes dinero invertido en la bolsa de Caracas, ¿realmente te está protegiendo de la devaluación del bolívar, o solo lo parece?</p>
+<p>En Venezuela es común ver que el IBC —el índice de la Bolsa de Valores de Caracas— sube mes tras mes, a veces de forma espectacular. Pero un número que sube en bolívares no siempre significa que ese dinero valga más. Si la tasa de cambio se devalúa más rápido de lo que sube el IBC, el valor real de esa inversión —medido en poder de compra— puede estar cayendo aunque el número en pantalla crezca.</p>
+<p>Esta herramienta existe para responder esa pregunta con datos verificables, actualizados a diario, y una metodología pública. No vendemos nada, no recomendamos qué comprar o vender: solo mostramos el resultado real, mes a mes, para que cada quien saque sus propias conclusiones.</p>
+</div>
+<div class="ibc-section ibc-prose">
+<h2 class="ibc-h2">¿Para quién es esto?</h2>
+<p>Está pensada para cualquier persona con dinero invertido en el mercado bursátil venezolano —o considerando invertir— que quiera entender si esa inversión está cumpliendo su función más básica: proteger el valor del dinero frente a la devaluación.</p>
+<div class="ibc-scope-grid">
+<div class="ibc-scope-card">
+<p class="label">Para quién sí</p>
+<ul>
+<li>Inversionistas del IBC, locales o en la diáspora</li>
+<li>Quien quiera entender el fenómeno, sin operar</li>
+<li>Periodistas y analistas económicos</li>
+</ul>
+</div>
+<div class="ibc-scope-card">
+<p class="label">Para quién no</p>
+<ul>
+<li>Trading activo o intradía</li>
+<li>Señales de compra o venta</li>
+<li>Sustituto de un asesor financiero</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="ibc-section">
+<h2 class="ibc-h2">Preguntas frecuentes</h2>
+<details class="ibc-faq-item">
+<summary>¿Qué significa "valor real"? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>Es la diferencia entre cuánto creció el IBC y cuánto se devaluó el bolívar en el mismo período, medida correctamente (no restando porcentajes, sino comparando cuánto creció cada uno). Si el resultado es positivo, tu dinero en la bolsa ganó poder de compra real — eso lo llamamos <strong style="color: var(--positive);">Beneficio Real</strong>. Si es negativo, lo perdió — eso es <strong style="color: var(--negative);">Pérdida Real</strong>, aunque el IBC en bolívares haya subido.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Por qué el IBC puede subir y aun así estar "perdiendo"? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>Porque el IBC está expresado en bolívares, y el bolívar pierde valor con el tiempo. Si el IBC sube 20% en un mes pero el bolívar se devalúa 30% frente al dólar en ese mismo mes, tu inversión creció en bolívares pero perdió poder de compra real. Es el mismo fenómeno que hace que un aumento de sueldo se sienta como una reducción si la inflación fue mayor.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Cómo se calcula exactamente? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>Usamos una razón de crecimientos, no una resta de porcentajes:</p>
+<div class="ibc-formula">Valor Real Mensual = ((1 + %IBC/100) / (1 + %BCV/100) − 1) × 100</div>
+<p>El valor real acumulado compone esa misma razón mes a mes, desde el primer mes disponible, y se expresa desde una base de 0: por encima es beneficio real, por debajo es pérdida real.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Por qué no simplemente sumar los porcentajes mensuales? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>Porque los porcentajes se componen, no se suman. Un mes que sube 10% y otro que sube 10% no dan 20% acumulado — dan 21% (<code>1.10 × 1.10 = 1.21</code>). La diferencia se hace más grande cuanto más meses se acumulan, así que sumar en lugar de componer da un número incorrecto, especialmente en un mercado tan volátil como el venezolano.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿De dónde vienen los datos? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>El IBC se toma del cierre diario publicado por la Bolsa de Valores de Caracas. La tasa BCV se toma de la tasa oficial publicada por el Banco Central de Venezuela, republicada por bcv.today. Ambos se actualizan automáticamente todos los días.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Con qué frecuencia se actualiza esto? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>Los datos se recopilan a diario mediante un proceso automatizado. La página se actualiza cada vez que la visitas, y también puedes forzar una actualización manual con el botón "Actualizar".</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Esto es una recomendación de inversión? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<p>No. Esta herramienta es educativa e informativa. No constituye asesoría financiera ni una recomendación de inversión garantizada. Mostramos los meses buenos y los malos sin sesgo — la decisión de qué hacer con tu dinero es tuya, idealmente con el acompañamiento de un asesor financiero calificado.</p>
+</div>
+</details>
+<details class="ibc-faq-item">
+<summary>¿Qué significa cada sección de la página principal? <span class="chev">▸</span></summary>
+<div class="ibc-faq-body">
+<ul>
+<li><strong>IBC vs BCV</strong>: cómo se movió el mercado bursátil frente al tipo de cambio, mes a mes o semana a semana.</li>
+<li><strong>Valor Real Acumulado</strong>: el resultado neto — cuánto has ganado o perdido en términos reales desde que empezamos a medir, con distintos horizontes de tiempo (3, 6, 9 o 12 meses).</li>
+<li><strong>Detalle del comportamiento real</strong>: el desglose mes por mes de ese resultado, para entender cómo se construyó.</li>
+</ul>
+</div>
+</details>
+</div>
+<p class="ibc-disclaimer"> Esta información es educativa e informativa, no constituye asesoría financiera ni una recomendación de inversión garantizada. Fuente: Bolsa de Valores de Caracas (IBC) y bcv.today, que republica la tasa oficial del BCV. </p>
+</div> </div> </body> </html>
