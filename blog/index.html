@@ -1,50 +1,104 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE045THZG7"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TE045THZG7'); </script> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="description" content="Guías educativas sobre la Bolsa de Valores de Caracas, inversión y economía venezolana — desde conceptos básicos hasta análisis de datos."> <title>Blog — IBC vs BCV</title> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241624099852028" crossorigin="anonymous"></script> <meta name="google-adsense-account" content="ca-pub-4241624099852028"> <style> html, body { margin: 0; background: #0e1420; } body { padding: 32px 16px; box-sizing: border-box; } .ibc-root { --bg: #0e1420; --surface: #141b29; --surface-2: #1a2333; --paper: #f5f1e8; --muted: #8b92a0; --line: rgba(245, 241, 232, 0.10); --ibc: #4a95e0; --bcv: #e2703a; --positive: #3dbd7d; --negative: #e2586a; --font-display: 'IBM Plex Serif', Georgia, serif; --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif; --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace; max-width: 720px; margin: 0 auto; background: var(--bg); color: var(--paper); font-family: var(--font-body); } .ibc-root * { box-sizing: border-box; } .ibc-root a { color: var(--ibc); } .ibc-body { padding: 28px 24px 40px; } .ibc-backlink { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; margin-bottom: 24px; } .ibc-backlink:hover { color: var(--paper); } .ibc-page-title { font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; } .ibc-page-lead { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin: 0 0 26px; max-width: 58ch; }
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE045THZG7"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TE045THZG7'); </script> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="description" content="Guías educativas sobre la Bolsa de Valores de Caracas, inversión y economía venezolana — desde conceptos básicos hasta análisis de datos."> <title>Blog — IBC vs BCV</title> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4241624099852028" crossorigin="anonymous"></script> <meta name="google-adsense-account" content="ca-pub-4241624099852028"> <style>
+  html, body { margin: 0; background: #0e1420; }
+  body { padding: 32px 16px; box-sizing: border-box; }
+  .ibc-root { --bg: #0e1420; --surface: #141b29; --surface-2: #1a2333; --paper: #f5f1e8; --muted: #8b92a0; --line: rgba(245, 241, 232, 0.10); --ibc: #4a95e0; --bcv: #e2703a; --positive: #3dbd7d; --negative: #e2586a; --font-display: 'IBM Plex Serif', Georgia, serif; --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif; --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace; max-width: 980px; margin: 0 auto; background: var(--bg); color: var(--paper); font-family: var(--font-body); }
+  .ibc-root * { box-sizing: border-box; }
+  .ibc-root a { color: var(--ibc); }
+  .ibc-body { padding: 28px 24px 40px; }
+  .ibc-nav-row { display: flex; gap: 8px; margin-bottom: 20px; }
+  .ibc-nav-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 6px; padding: 5px 12px; }
+  .ibc-nav-link:hover { color: var(--paper); border-color: var(--ibc); }
+  .ibc-page-title { font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .ibc-page-lead { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin: 0 0 26px; max-width: 62ch; }
 
-  /* Toggles de nivel -- mismo patron visual que las pestanas del dashboard principal */
-  .ibc-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; margin-bottom: 22px; }
-  .ibc-tab { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 12px 14px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  /* Indice de pestanas */
+  .ibc-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; margin-bottom: 24px; }
+  .ibc-tab { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: var(--font-body); font-size: 13.5px; font-weight: 500; padding: 12px 16px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
   .ibc-tab:hover { color: var(--paper); }
   .ibc-tab.active { color: var(--paper); border-bottom-color: var(--ibc); }
   .ibc-tab:focus-visible { outline: 2px solid var(--ibc); outline-offset: -2px; }
 
-  .ibc-article-card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; transition: border-color 120ms ease; }
-  .ibc-article-card:hover { border-color: var(--ibc); }
-  .ibc-article-title { font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--paper); margin: 0 0 6px; }
-  .ibc-article-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0 0 10px; }
-  .ibc-article-meta { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
-  .ibc-article-meta span { display: flex; align-items: center; gap: 4px; }
-  .ibc-empty-state { color: var(--muted); font-size: 13.5px; padding: 20px 0; }
+  .ibc-tab-panel { display: none; }
+  .ibc-tab-panel.active { display: block; }
+
+  .ibc-articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .ibc-article-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transition: border-color 120ms ease, transform 120ms ease; }
+  .ibc-article-card:hover { border-color: var(--ibc); transform: translateY(-2px); }
+  .ibc-card-banner { height: 96px; display: flex; align-items: flex-end; padding: 12px 16px; font-family: var(--font-display); font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.92); }
+  .ibc-card-banner[data-level="primeros-pasos"] { background: linear-gradient(135deg, #1c4d38, #2f7a53); }
+  .ibc-card-banner[data-level="herramientas"] { background: linear-gradient(135deg, #5a4a12, #a3821f); }
+  .ibc-card-banner[data-level="avanzado"] { background: linear-gradient(135deg, #5a1f2a, #a3324a); }
+  .ibc-card-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .ibc-card-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin: 0; }
+  .ibc-card-title { font-family: var(--font-display); font-weight: 500; font-size: 15.5px; line-height: 1.35; color: var(--paper); margin: 0; }
+  .ibc-card-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin: 0; flex: 1; }
+  .ibc-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .ibc-card-stats { display: flex; gap: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .ibc-card-stats span { display: flex; align-items: center; gap: 4px; }
+
+  .ibc-empty-slot { border: 1px dashed var(--line); border-radius: 12px; display: flex; align-items: center; justify-content: center; min-height: 180px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px; }
+
+  @media (max-width: 760px) { .ibc-articles-grid { grid-template-columns: 1fr; } }
   @media (max-width: 480px) { .ibc-page-title { font-size: 26px; } .ibc-body { padding: 20px 16px 30px; } }
 </style> </head> <body> <div class="ibc-root"> <div class="ibc-body">
 
-  <a class="ibc-backlink" href="../"> &larr; Volver a IBC vs BCV</a>
+  <div class="ibc-nav-row"> <a class="ibc-nav-link" href="../">Inicio</a> </div>
 
   <p class="ibc-page-title">Blog</p>
   <p class="ibc-page-lead">Guías educativas sobre la Bolsa de Valores de Caracas y la economía venezolana, para quien nunca ha invertido y para quien ya conoce el mercado.</p>
 
-  <div class="ibc-tabs" role="tablist" aria-label="Filtrar por nivel">
-    <button class="ibc-tab active" data-level="fundamentos" role="tab" aria-selected="true">Fundamentos</button>
-    <button class="ibc-tab" data-level="interpretacion" role="tab" aria-selected="false">Interpretación del mercado</button>
-    <button class="ibc-tab" data-level="avanzado" role="tab" aria-selected="false">Análisis avanzado</button>
+  <div class="ibc-tabs" role="tablist" aria-label="Categorías del blog">
+    <button class="ibc-tab active" data-tab="primeros-pasos" role="tab" aria-selected="true">Primeros pasos</button>
+    <button class="ibc-tab" data-tab="herramientas" role="tab" aria-selected="false">Herramientas</button>
+    <button class="ibc-tab" data-tab="avanzado" role="tab" aria-selected="false">Análisis avanzado</button>
   </div>
 
-  <div id="articleList">
-    <a class="ibc-article-card" data-level="fundamentos" href="falta-informacion-mercado-venezolano.html">
-      <p class="ibc-article-title">El problema de la falta de información en el mercado venezolano</p>
-      <p class="ibc-article-desc">Por qué es tan difícil encontrar datos confiables para invertir en Venezuela, y qué se puede hacer al respecto.</p>
-      <div class="ibc-article-meta"> <span>♡ <em id="likes-falta-informacion">—</em></span> <span>💬 <em id="comments-falta-informacion">—</em></span> </div>
-    </a>
-    <a class="ibc-article-card" data-level="interpretacion" href="oportunidades-inversion-venezuela.html" style="display:none;">
-      <p class="ibc-article-title">Oportunidades de inversión en Venezuela: cómo proteger tus bolívares frente a la inflación</p>
-      <p class="ibc-article-desc">Un panorama de las opciones disponibles — bolsa, divisas, bienes raíces, cripto — y cómo medir si realmente te están protegiendo.</p>
-      <div class="ibc-article-meta"> <span>♡ <em id="likes-oportunidades">—</em></span> <span>💬 <em id="comments-oportunidades">—</em></span> </div>
-    </a>
-    <a class="ibc-article-card" data-level="avanzado" href="un-ano-ibc-vs-bcv.html" style="display:none;">
-      <p class="ibc-article-title">Un año de IBC vs BCV: qué dicen los datos reales sobre ganar o perder frente a la devaluación</p>
-      <p class="ibc-article-desc">Trece meses de datos verificados, mes a mes, para entender por qué el resultado acumulado cuenta una historia distinta a la de un solo mes.</p>
-      <div class="ibc-article-meta"> <span>♡ <em id="likes-un-ano">—</em></span> <span>💬 <em id="comments-un-ano">—</em></span> </div>
-    </a>
-    <p class="ibc-empty-state" id="emptyState" style="display:none;">Todavía no hay artículos publicados en este nivel.</p>
+  <div class="ibc-tab-panel active" data-panel="primeros-pasos">
+    <div class="ibc-articles-grid">
+      <a class="ibc-article-card" href="oportunidades-inversion-venezuela.html">
+        <div class="ibc-card-banner" data-level="primeros-pasos">Primeros pasos</div>
+        <div class="ibc-card-body">
+          <p class="ibc-card-meta">10 sept 2026 · 4 min de lectura</p>
+          <p class="ibc-card-title">Oportunidades de inversión en Venezuela: cómo proteger tus bolívares frente a la inflación</p>
+          <p class="ibc-card-desc">Un panorama de las opciones disponibles — bolsa, divisas, bienes raíces, cripto — y cómo medir si realmente te están protegiendo.</p>
+          <div class="ibc-card-footer"> <div class="ibc-card-stats"> <span>♡ <em>—</em></span> <span>💬 <em>—</em></span> </div> </div>
+        </div>
+      </a>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+    </div>
+  </div>
+
+  <div class="ibc-tab-panel" data-panel="herramientas">
+    <div class="ibc-articles-grid">
+      <a class="ibc-article-card" href="falta-informacion-mercado-venezolano.html">
+        <div class="ibc-card-banner" data-level="herramientas">Herramientas</div>
+        <div class="ibc-card-body">
+          <p class="ibc-card-meta">10 sept 2026 · 3 min de lectura</p>
+          <p class="ibc-card-title">El problema de la falta de información en el mercado venezolano</p>
+          <p class="ibc-card-desc">Por qué es tan difícil encontrar datos confiables para invertir en Venezuela, y qué se puede hacer al respecto.</p>
+          <div class="ibc-card-footer"> <div class="ibc-card-stats"> <span>♡ <em>—</em></span> <span>💬 <em>—</em></span> </div> </div>
+        </div>
+      </a>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+    </div>
+  </div>
+
+  <div class="ibc-tab-panel" data-panel="avanzado">
+    <div class="ibc-articles-grid">
+      <a class="ibc-article-card" href="un-ano-ibc-vs-bcv.html">
+        <div class="ibc-card-banner" data-level="avanzado">Análisis avanzado</div>
+        <div class="ibc-card-body">
+          <p class="ibc-card-meta">10 sept 2026 · 3 min de lectura</p>
+          <p class="ibc-card-title">Un año de IBC vs BCV: qué dicen los datos reales sobre ganar o perder frente a la devaluación</p>
+          <p class="ibc-card-desc">Trece meses de datos verificados, mes a mes, para entender por qué el resultado acumulado cuenta una historia distinta a la de un solo mes.</p>
+          <div class="ibc-card-footer"> <div class="ibc-card-stats"> <span>♡ <em>—</em></span> <span>💬 <em>—</em></span> </div> </div>
+        </div>
+      </a>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+      <div class="ibc-empty-slot">Próximo artículo de esta categoría — en preparación</div>
+    </div>
   </div>
 
 </div> </div>
@@ -52,14 +106,7 @@
   document.querySelectorAll('.ibc-tabs .ibc-tab').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.ibc-tabs .ibc-tab').forEach((b) => { b.classList.toggle('active', b === btn); b.setAttribute('aria-selected', b === btn ? 'true' : 'false'); });
-      const nivel = btn.dataset.level;
-      let visibles = 0;
-      document.querySelectorAll('.ibc-article-card').forEach((card) => {
-        const mostrar = card.dataset.level === nivel;
-        card.style.display = mostrar ? 'block' : 'none';
-        if (mostrar) visibles++;
-      });
-      document.getElementById('emptyState').style.display = visibles === 0 ? 'block' : 'none';
+      document.querySelectorAll('.ibc-tab-panel').forEach((p) => { p.classList.toggle('active', p.dataset.panel === btn.dataset.tab); });
     });
   });
 </script>
